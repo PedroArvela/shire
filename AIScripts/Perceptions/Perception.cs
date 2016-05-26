@@ -5,7 +5,7 @@ using System.Collections;
 namespace Scripts.AI.Perceptions
 {
 
-    public abstract class Perception : MonoBehaviour
+    public abstract class Perception
     {
 
         public string Name;

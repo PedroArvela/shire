@@ -8,9 +8,10 @@ namespace Scripts.AI.Perceptions
     {
 
 
-        public SeeResource()
+        public SeeResource(GameObject target)
         {
             Name = "SeeResource";
+            perceptionTarget = target;
         }
 
         

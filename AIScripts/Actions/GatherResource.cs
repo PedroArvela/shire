@@ -5,7 +5,7 @@ using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
-    public class GatherResource : Action
+    public class GatherResource : AIAction
     {
 
         private GameObject targetResource;
@@ -24,18 +24,19 @@ namespace Scripts.AI.Actions
         }
 
 
-        public override void Execute()
+        public override void Execute(GameObject go)
         {
-            if (Vector3.Distance(this.transform.position, targetResource.transform.position) < gatherDistance)
+            if (Vector3.Distance(go.transform.position, targetResource.transform.position) < gatherDistance)
             {
 
                 targetResource.gameObject.GetComponent<ResourceVars>().currentResource -= 10;
+                go.gameObject.GetComponent<CharacterVars>().currentResource += 10;
 
             }
             else
             {
 
-                Goto.Execute();
+                Goto.Execute(go);
 
             }
         }

@@ -7,9 +7,10 @@ namespace Scripts.AI.Perceptions
     public class SeeOrc : Perception
     {
 
-        public SeeOrc()
+        public SeeOrc(GameObject target)
         {
             Name = "SeeOrc";
+            perceptionTarget = target;
             
         }
 

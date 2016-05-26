@@ -4,7 +4,7 @@ using System.Collections;
 namespace Scripts.AI.Actions
 {
 
-    public class Wander : Action
+    public class Wander : AIAction
     {
 
         public Vector3 position { get; set; }
@@ -18,20 +18,20 @@ namespace Scripts.AI.Actions
 
         }
 
-        public override void Execute()
+        public override void Execute(GameObject go)
         {
 
             //this.GetComponent<Animator>().SetBool("isWalking", true);
             NavMeshHit myNavHit;
-            Vector3 tg = this.gameObject.transform.forward.normalized * 10;
+            Vector3 tg = go.gameObject.transform.forward.normalized * 10;
 
             tg = Quaternion.AngleAxis((Random.value * 20) - 10, Vector3.up) * tg;
-            tg = tg + this.transform.position;
+            tg = tg + go.transform.position;
             if (NavMesh.SamplePosition(tg, out myNavHit, 100, -1))
             {
 
-                this.GetComponent<NavMeshAgent>().SetDestination(myNavHit.position + ((myNavHit.position - tg) * 5));
-                this.GetComponent<NavMeshAgent>().Resume();
+                go.GetComponent<NavMeshAgent>().SetDestination(myNavHit.position + ((myNavHit.position - tg) * 5));
+                go.GetComponent<NavMeshAgent>().Resume();
             }
 
 

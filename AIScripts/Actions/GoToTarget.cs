@@ -5,7 +5,7 @@ using System.Collections;
 namespace Scripts.AI.Actions
 {
 
-    public class GoToTarget : Action
+    public class GoToTarget : AIAction
     {
 
         public Vector3 position { get; set; }
@@ -19,19 +19,19 @@ namespace Scripts.AI.Actions
 
         }
 
-        public override void Execute()
+        public override void Execute(GameObject go)
         {
-            if (Vector3.Distance(this.transform.position, position) < stopDistance)
+            if (Vector3.Distance(go.transform.position, position) < stopDistance)
             {
 
-                this.GetComponent<NavMeshAgent>().SetDestination(position);
-                this.GetComponent<NavMeshAgent>().Resume();
+                go.GetComponent<NavMeshAgent>().SetDestination(position);
+                go.GetComponent<NavMeshAgent>().Resume();
 
             }
             else
             {
 
-                this.GetComponent<NavMeshAgent>().Stop();
+                go.GetComponent<NavMeshAgent>().Stop();
 
             }
         }

@@ -5,7 +5,7 @@ using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
-    public class AttackTarget : Action
+    public class AttackTarget : AIAction
     {
 
 
@@ -27,9 +27,9 @@ namespace Scripts.AI.Actions
 
 
 
-        public override void Execute()
+        public override void Execute(GameObject go)
         {
-            if (Vector3.Distance(this.transform.position, attackTarget.transform.position) < attackDistance)
+            if (Vector3.Distance(go.transform.position, attackTarget.transform.position) < attackDistance)
             {
 
                 attackTarget.gameObject.GetComponent<CharacterVars>().currentHealth--;
@@ -38,11 +38,11 @@ namespace Scripts.AI.Actions
             else
             {
 
-                Goto.Execute();
+                Goto.Execute(go);
 
             }
 
-
+            Debug.Log("Attaking");
 
 
 

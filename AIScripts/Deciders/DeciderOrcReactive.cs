@@ -3,7 +3,7 @@ using System.Collections;
 using Scripts.AI.Actions;
 using Scripts.AI.Perceptions;
 using System;
-
+using System.Collections.Generic;
 
 
 namespace Scripts.AI.Deciders
@@ -13,7 +13,7 @@ namespace Scripts.AI.Deciders
 
 
 
-        public override Actions.Action Decide(Perception[] perceptions)
+        public override Actions.AIAction Decide(List<Perception> perceptions)
         {
             GameObject currentVillager = null;
 

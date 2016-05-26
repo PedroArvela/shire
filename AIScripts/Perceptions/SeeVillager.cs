@@ -7,9 +7,10 @@ namespace Scripts.AI.Perceptions
     public class SeeVillager : Perception
     {
 
-        public SeeVillager()
+        public SeeVillager(GameObject target)
         {
             Name = "SeeVillager";
+            perceptionTarget = target;
 
         }
 

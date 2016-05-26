@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Scripts.AI.Actions
 {
-    public abstract class Action : MonoBehaviour
+    public abstract class AIAction
     {
 
 
@@ -12,7 +12,7 @@ namespace Scripts.AI.Actions
         public string Name;
 
 
-        abstract public void Execute();
+        abstract public void Execute(GameObject go);
 
 
 

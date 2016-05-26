@@ -10,10 +10,14 @@ namespace Scripts.Utils
         public int currentHealth;
         public int currentEnergy;
         public int currentResource;
-   
+
+        public int maxHealth;
+        public int maxEnergy;
+        public int maxResource;
 
 
 
-        
+
+
     }
 }

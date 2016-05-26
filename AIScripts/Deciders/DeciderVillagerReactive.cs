@@ -3,19 +3,21 @@ using System.Collections;
 using Scripts.AI.Actions;
 using Scripts.AI.Perceptions;
 using System;
+using Scripts.Utils;
+using System.Collections.Generic;
 
 namespace Scripts.AI.Deciders
 {
 	public class DeciderVillagerReactive : Decider
 	{
-		public override Actions.Action Decide (Perception[] perceptions)
+		public override Actions.AIAction Decide (List<Perception> perceptions)
 		{
 			// If there are Orcs, deal with them
 			// Otherwise, deal with resources
 			// If none of the above apply, wander around.
 
-			if (Array.Exists (perceptions, p => p.Name == "SeeOrcs")) {
-				SeeOrc[] orcs = (SeeOrc[]) Array.FindAll (perceptions, p => p.Name == "SeeOrcs");
+			if (perceptions.Exists (p => p.Name == "SeeOrc")) {
+                List<Perception> orcs = perceptions.FindAll (p => p.Name == "SeeOrc");
 				GameObject closestOrc = orcs [0].perceptionTarget;
 
 				// Find the closest orc
@@ -28,9 +30,23 @@ namespace Scripts.AI.Deciders
 				}
 
 				return new AttackTarget (closestOrc);
-			} else if (Array.Exists (perceptions, p => p.Name == "SeeResources")) {
-				//TODO: Deal with resources
-			} else {
+			} else if (perceptions.Exists (p => p.Name == "SeeResource") && this.GetComponent<CharacterVars>().currentResource <= this.GetComponent<CharacterVars>().maxResource) {
+                List<Perception> resources = perceptions.FindAll(p => p.Name == "SeeResource");
+                GameObject closestResource = resources[0].perceptionTarget;
+
+                // Find the closest orc
+                foreach (SeeResource resource in resources)
+                {
+                    float oldDistance = Vector3.Distance(this.transform.position, closestResource.transform.position);
+                    float newDistance = Vector3.Distance(this.transform.position, resource.perceptionTarget.transform.position);
+                    if (newDistance <= oldDistance)
+                    {
+                        closestResource = resource.perceptionTarget;
+                    }
+                }
+
+                return new GatherResource(closestResource);
+            } else {
 				return new Wander ();
 			}
 		}
