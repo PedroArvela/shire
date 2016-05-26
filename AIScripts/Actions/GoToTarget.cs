@@ -20,7 +20,7 @@ namespace Scripts.AI.Actions
 
 		public override void Execute (GameObject go)
 		{
-			if (Vector3.Distance (go.transform.position, position) < stopDistance) {
+			if (Vector3.Distance (go.transform.position, position) > stopDistance) {
 				go.GetComponent<NavMeshAgent> ().SetDestination (position);
 				go.GetComponent<NavMeshAgent> ().Resume ();
 			} else {
