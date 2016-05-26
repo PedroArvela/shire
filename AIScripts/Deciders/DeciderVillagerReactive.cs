@@ -17,36 +17,18 @@ namespace Scripts.AI.Deciders
 			// If none of the above apply, wander around.
 
 			if (perceptions.Exists (p => p.Name == "SeeOrc")) {
-                List<Perception> orcs = perceptions.FindAll (p => p.Name == "SeeOrc");
-				GameObject closestOrc = orcs [0].perceptionTarget;
-
-				// Find the closest orc
-				foreach(SeeOrc orc in orcs) {
-					float oldDistance = Vector3.Distance (this.transform.position, closestOrc.transform.position);
-					float newDistance = Vector3.Distance (this.transform.position, orc.perceptionTarget.transform.position);
-					if (newDistance <= oldDistance) {
-						closestOrc = orc.perceptionTarget;
-					}
-				}
-
-				return new AttackTarget (closestOrc);
-			} else if (perceptions.Exists (p => p.Name == "SeeResource") && this.GetComponent<CharacterVars>().currentResource <= this.GetComponent<CharacterVars>().maxResource) {
-                List<Perception> resources = perceptions.FindAll(p => p.Name == "SeeResource");
-                GameObject closestResource = resources[0].perceptionTarget;
-
-                // Find the closest orc
-                foreach (SeeResource resource in resources)
-                {
-                    float oldDistance = Vector3.Distance(this.transform.position, closestResource.transform.position);
-                    float newDistance = Vector3.Distance(this.transform.position, resource.perceptionTarget.transform.position);
-                    if (newDistance <= oldDistance)
-                    {
-                        closestResource = resource.perceptionTarget;
-                    }
-                }
-
-                return new GatherResource(closestResource);
-            } else {
+				Debug.Log ("Decided Attack");
+				List<Perception> orcs = perceptions.FindAll (p => p.Name == "SeeOrc");
+				return new AttackTarget (ClosestPerception (orcs).perceptionTarget);
+			} else if (perceptions.Exists (p => p.Name == "SeeResource") && CharVars ().currentResource <= CharVars ().maxResource) {
+				Debug.Log ("Decided Gather");
+				List<Perception> resources = perceptions.FindAll (p => p.Name == "SeeResource");
+				return new GatherResource (ClosestPerception (resources).perceptionTarget);
+			} else if (CharVars ().currentResource == CharVars ().maxResource) {
+				Debug.Log ("Go To Village: " + GameObject.Find ("Green Village").transform.position);
+				return new GoToTarget (GameObject.Find ("Green Village").transform.position);
+			} else {
+				Debug.Log ("Decided Wander");
 				return new Wander ();
 			}
 		}
