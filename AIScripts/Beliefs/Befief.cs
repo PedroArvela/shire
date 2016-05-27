@@ -4,11 +4,11 @@ using Scripts.AI.Perceptions;
 
 namespace Scripts.AI.Beliefs
 {
-	public class Befief
+	public abstract class Befief
 	{
 		public GameObject Subject;
 		public Vector3 Location;
-		public SortedDictionary<string, Tuple<float, float>> attributes;
+		public SortedDictionary<string, float> attributes;
 		public float Certainty;
 
 		public abstract void updateBelief (List<Perception> p);
