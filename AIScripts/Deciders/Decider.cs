@@ -23,8 +23,8 @@ namespace Scripts.AI.Deciders
 			Perception closestPerception = perceptions [0];
 
 			foreach (Perception perception in perceptions) {
-				float oldDistance = Vector3.Distance (this.transform.position, closestPerception.perceptionTarget.transform.position);
-				float newDistance = Vector3.Distance (this.transform.position, perception.perceptionTarget.transform.position);
+				float oldDistance = Vector3.Distance (this.transform.position, closestPerception.target.transform.position);
+				float newDistance = Vector3.Distance (this.transform.position, perception.target.transform.position);
 
 				if (newDistance <= oldDistance) {
 					closestPerception = perception;

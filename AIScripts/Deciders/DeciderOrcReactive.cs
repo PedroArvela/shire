@@ -21,9 +21,9 @@ namespace Scripts.AI.Deciders
             {
                 if (p.Name == "SeeVillager")
                 {
-                    if(currentVillager == null || (Vector3.Distance(currentVillager.transform.position, this.transform.position) > Vector3.Distance(p.perceptionTarget.transform.position, this.transform.position)))
+                    if(currentVillager == null || (Vector3.Distance(currentVillager.transform.position, this.transform.position) > Vector3.Distance(p.target.transform.position, this.transform.position)))
                     {
-                        currentVillager = p.perceptionTarget;
+                        currentVillager = p.target;
                     }   
                 }
             }

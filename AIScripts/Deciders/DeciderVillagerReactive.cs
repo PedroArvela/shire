@@ -19,14 +19,17 @@ namespace Scripts.AI.Deciders
 			if (perceptions.Exists (p => p.Name == "SeeOrc")) {
 				Debug.Log ("Decided Attack");
 				List<Perception> orcs = perceptions.FindAll (p => p.Name == "SeeOrc");
-				return new AttackTarget (ClosestPerception (orcs).perceptionTarget);
+				return new AttackTarget (ClosestPerception (orcs).target);
 			} else if (perceptions.Exists (p => p.Name == "SeeResource") && CharVars ().currentResource < CharVars ().maxResource) {
 				Debug.Log ("Decided Gather");
 				List<Perception> resources = perceptions.FindAll (p => p.Name == "SeeResource");
-				return new GatherResource (ClosestPerception (resources).perceptionTarget);
+				return new GatherResource (ClosestPerception (resources).target);
+			} else if (perceptions.Exists (prop => prop.Name == "InVillage") && CharVars ().currentResource >= CharVars ().maxResource) {
+				Debug.Log ("Drop Resources");
+				return new DropResources ();
 			} else if (CharVars ().currentResource >= CharVars ().maxResource) {
-				Debug.Log ("Go To Village: " + GameObject.FindGameObjectWithTag("Village").transform.position);
-				return new GoToTarget (GameObject.FindGameObjectWithTag("Village").gameObject.transform.position);
+				Debug.Log ("Go To Village: " + GameObject.FindGameObjectWithTag ("Village").transform.position);
+				return new GoToTarget (GameObject.FindGameObjectWithTag ("Village").gameObject.transform.position);
 			} else {
 				Debug.Log ("Decided Wander");
 				return new Wander ();
