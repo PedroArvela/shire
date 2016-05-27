@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class VillagerScript : MonoBehaviour
 {
-	HashSet<Perception> currentPerceptions;
+	List<Perception> currentPerceptions;
 	List<Collider> triggerList;
 
 	private SphereCollider col;
@@ -19,7 +19,7 @@ public class VillagerScript : MonoBehaviour
 
 	void Awake ()
 	{
-		currentPerceptions = new HashSet<Perception> ();
+		currentPerceptions = new List<Perception> ();
 		triggerList = new List<Collider> ();
 
 		decider = this.gameObject.AddComponent<DeciderVillagerReactive> ();
@@ -91,10 +91,7 @@ public class VillagerScript : MonoBehaviour
 
 			RaycastHit hit;
 
-			bool raycasthit = Physics.Raycast (transform.position + transform.up, direction.normalized, out hit, col.radius);
-			bool sameObject = hit.collider.gameObject == other.gameObject;
-
-			return raycasthit && sameObject;
+			return Physics.Raycast (transform.position + transform.up, direction.normalized, out hit, col.radius) && hit.collider.gameObject == other.gameObject;
 		}
 
 		return false;

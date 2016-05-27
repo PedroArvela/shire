@@ -12,14 +12,14 @@ namespace Scripts.AI.Deciders
 	{
 		public string Name;
 
-		public abstract AIAction Decide (HashSet<Perception> perceptions);
+		public abstract AIAction Decide (List<Perception> perceptions);
 
 		protected CharacterVars CharVars ()
 		{
 			return this.GetComponent<CharacterVars> ();
 		}
 
-		protected Perception ClosestPerception (IEnumerable<Perception> perceptions)
+		protected Perception ClosestPerception (List<Perception> perceptions)
 		{
 			Perception closestPerception = null;
 

@@ -26,9 +26,9 @@ namespace Scripts.AI.Actions
                 go.GetComponent<NavMeshAgent>().Resume();
                
                 go.GetComponent<Animator>().SetBool("isWalking", true);
-                Debug.Log("GOTO:" + position);
+                //Debug.Log("GOTO:" + position);
             } else {
-				Debug.Log ("Reached destination");
+				//Debug.Log ("Reached destination");
 				go.GetComponent<NavMeshAgent> ().Stop ();
                 go.GetComponent<Animator>().SetBool("isWalking", false);
             }

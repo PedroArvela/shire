@@ -13,7 +13,7 @@ namespace Scripts.AI.Deciders
 
 
 
-		public override Actions.AIAction Decide(HashSet<Perception> perceptions)
+		public override Actions.AIAction Decide(List<Perception> perceptions)
         {
             GameObject currentVillager = null;
 
