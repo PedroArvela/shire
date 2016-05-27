@@ -3,12 +3,13 @@ using System.Collections;
 
 namespace Scripts.AI.Perceptions
 {
-	public class SeeResource : Perception
+	public class CanSee : Perception
 	{
-		public SeeResource (GameObject target)
+		public CanSee (GameObject target)
 		{
-			Name = "SeeResource";
+			Name = "CanSee";
 			this.target = target;
+			targetTag = target.tag;
 		}
 	}
 }

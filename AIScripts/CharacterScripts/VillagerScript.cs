@@ -7,19 +7,33 @@ using System.Collections.Generic;
 
 public class VillagerScript : MonoBehaviour
 {
-	List<Perception> currentPerceptions;
+	HashSet<Perception> currentPerceptions;
+	List<Collider> triggerList;
+
+	private SphereCollider col;
+	private float fov;
+	private float hearingRange;
+
 	AIAction currentAction = null;
 	Decider decider;
-	CharacterVars charVars = null;
+
+	void Awake ()
+	{
+		currentPerceptions = new HashSet<Perception> ();
+		triggerList = new List<Collider> ();
+
+		decider = this.gameObject.AddComponent<DeciderVillagerReactive> ();
+
+		col = GetComponent<SphereCollider> ();
+		fov = GetComponent<CharacterVars> ().FoVAngle;
+		hearingRange = GetComponent<CharacterVars> ().HearingRange;
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		currentPerceptions = new List<Perception> ();
-		decider = this.gameObject.AddComponent<DeciderVillagerReactive> ();
-		charVars = this.gameObject.GetComponent<CharacterVars> ();
-
 		InvokeRepeating ("DecideAction", 2f, 2f);
+		InvokeRepeating ("processPerceptions", 1f, 1f);
 	}
 	
 	// Update is called once per frame
@@ -32,33 +46,62 @@ public class VillagerScript : MonoBehaviour
 
 	void DecideAction ()
 	{
+		Debug.Log ("Perceptions " + currentPerceptions.Count);
 		currentAction = decider.Decide (currentPerceptions);
+	}
+
+	void processPerceptions ()
+	{
+		currentPerceptions.Clear ();
+
+		foreach (Collider other in triggerList) {
+			if (other.tag == "Orc" || other.tag == "Villager" || other.tag == "Resource" || other.tag == "Village") {
+
+				if (inSight (other)) {
+					currentPerceptions.Add (new CanSee (other.gameObject));
+				}
+
+				if (withinHearing (other)) {
+					currentPerceptions.Add (new IsNear (other.gameObject));
+				}
+			}
+		}
 	}
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (!other.isTrigger) {
-			if (other.tag == "Orc") {
-				currentPerceptions.Add (new SeeOrc (other.gameObject));
-			}
-
-			if (other.tag == "Villager") {
-				currentPerceptions.Add (new SeeVillager (other.gameObject));
-			}
-
-			if (other.tag == "Resource") {
-				currentPerceptions.Add (new SeeResource (other.gameObject));
-			}
-
-			if (other.tag == "Village") {
-				currentPerceptions.Add (new InVillage ());
-			}
+		if (!triggerList.Contains (other)) {
+			triggerList.Add (other);
 		}
 	}
 
 	void OnTriggerExit (Collider other)
 	{
-		Perception per = currentPerceptions.Find (p => p.target.Equals (other.gameObject));
-		currentPerceptions.Remove (per);
+		if (triggerList.Contains (other)) {
+			triggerList.Remove (other);
+		}
+	}
+
+	bool inSight (Collider other)
+	{
+		Vector3 direction = other.transform.position - transform.position;
+		float angle = Vector3.Angle (direction, transform.forward);
+
+		if (angle <= fov * 0.5f) {
+
+			RaycastHit hit;
+
+			bool raycasthit = Physics.Raycast (transform.position + transform.up, direction.normalized, out hit, col.radius);
+			bool sameObject = hit.collider.gameObject == other.gameObject;
+
+			return raycasthit && sameObject;
+		}
+
+		return false;
+	}
+
+	bool withinHearing (Collider other)
+	{
+		return Vector3.Distance (other.transform.position, transform.position) <= hearingRange;
 	}
 }

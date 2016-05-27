@@ -3,12 +3,13 @@ using System.Collections;
 
 namespace Scripts.AI.Perceptions
 {
-	public class SeeOrc : Perception
+	public class IsNear : Perception
 	{
-		public SeeOrc (GameObject target)
+		public IsNear (GameObject target)
 		{
-			Name = "SeeOrc";
+			Name = "IsNear";
 			this.target = target;
+			targetTag = target.tag;
 		}
 	}
 }

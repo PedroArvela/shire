@@ -20,7 +20,6 @@ namespace Scripts.AI.Actions
 
 		public override void Execute (GameObject go)
 		{
-			CharacterVars charVars = go.GetComponent<CharacterVars> ();
 			Animator anim = go.GetComponent<Animator> ();
 
 			if (Vector3.Distance (go.transform.position, target.transform.position) < attackDistance) {

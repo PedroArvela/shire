@@ -7,5 +7,6 @@ namespace Scripts.AI.Perceptions
 	{
 		public string Name;
 		public GameObject target;
+		public string targetTag;
 	}
 }

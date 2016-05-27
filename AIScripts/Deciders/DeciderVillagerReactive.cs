@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Scripts.AI.Actions;
 using Scripts.AI.Perceptions;
 using System;
+using System.Linq;
 using Scripts.Utils;
 using System.Collections.Generic;
 
@@ -10,21 +10,26 @@ namespace Scripts.AI.Deciders
 {
 	public class DeciderVillagerReactive : Decider
 	{
-		public override Actions.AIAction Decide (List<Perception> perceptions)
+		public override Actions.AIAction Decide (HashSet<Perception> perceptions)
 		{
-			// If there are Orcs, deal with them
-			// Otherwise, deal with resources
-			// If none of the above apply, wander around.
-
-			if (perceptions.Exists (p => p.Name == "SeeOrc")) {
+			if (perceptions.Where (p => p.targetTag == "Orc").Any ()) {
 				Debug.Log ("Decided Attack");
-				List<Perception> orcs = perceptions.FindAll (p => p.Name == "SeeOrc");
+				IEnumerable<Perception> orcs = perceptions.Where (p => p.targetTag == "Orc");
 				return new AttackTarget (ClosestPerception (orcs).target);
-			} else if (perceptions.Exists (p => p.Name == "SeeResource") && CharVars ().currentResource < CharVars ().maxResource) {
+			} else {
+				Debug.Log ("Decided Wander");
+				return new Wander ();
+			}
+
+/*			if (perceptions.Where (p => p.Name == "SeeOrc").Any ()) {
+				Debug.Log ("Decided Attack");
+				IEnumerable<Perception> orcs = perceptions.Where (p => p.Name == "SeeOrc");
+				return new AttackTarget (ClosestPerception (orcs).target);
+			} else if (perceptions.Where (p => p.Name == "SeeResource").Any () && CharVars ().currentResource < CharVars ().maxResource) {
 				Debug.Log ("Decided Gather");
-				List<Perception> resources = perceptions.FindAll (p => p.Name == "SeeResource");
+				IEnumerable<Perception> resources = perceptions.Where (p => p.Name == "SeeResource");
 				return new GatherResource (ClosestPerception (resources).target);
-			} else if (perceptions.Exists (prop => prop.Name == "InVillage") && CharVars ().currentResource >= CharVars ().maxResource) {
+			} else if (perceptions.Where (prop => prop.Name == "InVillage").Any () && CharVars ().currentResource >= CharVars ().maxResource) {
 				Debug.Log ("Drop Resources");
 				return new DropResources ();
 			} else if (CharVars ().currentResource >= CharVars ().maxResource) {
@@ -33,7 +38,7 @@ namespace Scripts.AI.Deciders
 			} else {
 				Debug.Log ("Decided Wander");
 				return new Wander ();
-			}
+			}*/
 		}
 	}
 }
