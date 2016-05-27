@@ -18,6 +18,8 @@ public class VillagerScript : MonoBehaviour
 		currentPerceptions = new List<Perception> ();
 		decider = this.gameObject.AddComponent<DeciderVillagerReactive> ();
 		charVars = this.gameObject.GetComponent<CharacterVars> ();
+
+		InvokeRepeating ("DecideAction", 2f, 2f);
 	}
 	
 	// Update is called once per frame
@@ -28,7 +30,7 @@ public class VillagerScript : MonoBehaviour
 		}
 	}
 
-	void FixedUpdate ()
+	void DecideAction ()
 	{
 		currentAction = decider.Decide (currentPerceptions);
 	}
