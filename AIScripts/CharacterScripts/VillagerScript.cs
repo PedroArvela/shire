@@ -57,9 +57,11 @@ public class VillagerScript : MonoBehaviour
 		foreach (Collider other in triggerList) {
 			if (other.tag == "Orc" || other.tag == "Villager" || other.tag == "Resource" || other.tag == "Village") {
 
+                Debug.Log("Considering");
 				if (inSight (other)) {
 					currentPerceptions.Add (new CanSee (other.gameObject));
-				}
+                    Debug.Log("Adding");
+                }
 
 				if (withinHearing (other)) {
 					currentPerceptions.Add (new IsNear (other.gameObject));
@@ -79,19 +81,26 @@ public class VillagerScript : MonoBehaviour
 	{
 		if (triggerList.Contains (other)) {
 			triggerList.Remove (other);
-		}
+		} else
+        {
+            //Debug.Log("Oops, missed one <_<");
+        }
 	}
 
 	bool inSight (Collider other)
 	{
-		Vector3 direction = other.transform.position - transform.position;
-		float angle = Vector3.Angle (direction, transform.forward);
-
+		Vector3 direction = other.transform.position - (transform.position + transform.up);
+		float angle = Vector3.Angle (direction.normalized, transform.forward.normalized);
+        //Debug.Log(angle);
 		if (angle <= fov * 0.5f) {
 
 			RaycastHit hit;
-
-			return Physics.Raycast (transform.position + transform.up, direction.normalized, out hit, col.radius) && hit.collider.gameObject == other.gameObject;
+            if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit))
+            {
+                //Debug.Log("Hitmannn");
+                return hit.collider.gameObject.Equals(other.gameObject);
+            }
+            return false;
 		}
 
 		return false;
