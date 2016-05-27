@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Scripts.AI.Desires;
 
 namespace Scripts.AI.Intentions
 {

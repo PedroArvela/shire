@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using Scripts.AI.Perceptions;
 
 namespace Scripts.AI.Beliefs
 {
 	public class Befief
 	{
-		public GameObject Subject { get; }
-
-		public Vector3 Location { get; }
-
-		public float Certainty { get; }
+		public GameObject Subject;
+		public Vector3 Location;
+		public SortedDictionary<string, Tuple<float, float>> attributes;
+		public float Certainty;
 
 		public abstract void updateBelief (List<Perception> p);
 
