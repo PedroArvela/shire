@@ -21,9 +21,12 @@ namespace Scripts.AI.Actions
 		public override void Execute (GameObject go)
 		{
 			if (Vector3.Distance (go.transform.position, position) > stopDistance) {
-				go.GetComponent<NavMeshAgent> ().SetDestination (position);
-				go.GetComponent<NavMeshAgent> ().Resume ();
+                
+                go.GetComponent<NavMeshAgent>().SetDestination(position);
+                go.GetComponent<NavMeshAgent>().Resume();
+               
                 go.GetComponent<Animator>().SetBool("isWalking", true);
+                Debug.Log("GOTO:" + position);
             } else {
 				Debug.Log ("Reached destination");
 				go.GetComponent<NavMeshAgent> ().Stop ();

@@ -25,8 +25,8 @@ namespace Scripts.AI.Deciders
 				List<Perception> resources = perceptions.FindAll (p => p.Name == "SeeResource");
 				return new GatherResource (ClosestPerception (resources).perceptionTarget);
 			} else if (CharVars ().currentResource == CharVars ().maxResource) {
-				Debug.Log ("Go To Village: " + GameObject.Find ("Green Village").transform.position);
-				return new GoToTarget (GameObject.Find ("Green Village").transform.position);
+				Debug.Log ("Go To Village: " + GameObject.FindGameObjectWithTag("Village").transform.position);
+				return new GoToTarget (GameObject.FindGameObjectWithTag("Village").gameObject.transform.position);
 			} else {
 				Debug.Log ("Decided Wander");
 				return new Wander ();
