@@ -54,21 +54,24 @@ public class VillagerScript : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
 
-        if(other.tag == "Orc")
+        if (!other.isTrigger)
         {
-            currentPerceptions.Add(new SeeOrc(other.gameObject));
-        }
+            if (other.tag == "Orc")
+            {
+                currentPerceptions.Add(new SeeOrc(other.gameObject));
+            }
 
-        if(other.tag == "Villager")
-        {
-            currentPerceptions.Add(new SeeVillager(other.gameObject));
+            if (other.tag == "Villager")
+            {
+                currentPerceptions.Add(new SeeVillager(other.gameObject));
 
-        }
+            }
 
-        if(other.tag == "Resource")
-        {
-            currentPerceptions.Add(new SeeResource(other.gameObject));
+            if (other.tag == "Resource")
+            {
+                currentPerceptions.Add(new SeeResource(other.gameObject));
 
+            } 
         }
 
 

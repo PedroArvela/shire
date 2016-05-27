@@ -29,9 +29,10 @@ namespace Scripts.AI.Actions
             tg = tg + go.transform.position;
             if (NavMesh.SamplePosition(tg, out myNavHit, 100, -1))
             {
-
+                
                 go.GetComponent<NavMeshAgent>().SetDestination(myNavHit.position + ((myNavHit.position - tg) * 5));
                 go.GetComponent<NavMeshAgent>().Resume();
+                go.GetComponent<Animator>().SetBool("isWalking", true);
             }
 
 
