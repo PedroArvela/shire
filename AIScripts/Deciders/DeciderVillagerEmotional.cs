@@ -100,8 +100,8 @@ namespace Scripts.AI.Deciders
 			float totalIntensity = 0f;
 
 			foreach (Emotion e in emotions) {
-				totalValence += (float) Math.Pow(e.valence, 2);
-				totalIntensity += (float) Math.Pow(e.intensity, 2);
+				totalValence += (float)Math.Pow (e.valence, 2);
+				totalIntensity += (float)Math.Pow (e.intensity, 2);
 			}
 
 			totalValence = totalValence / emotions.Count;
@@ -136,7 +136,7 @@ namespace Scripts.AI.Deciders
 			}
 
 			foreach (Desire desire in desires) {
-				desire.updateDesire (beliefs);
+				desire.updateDesire (beliefs, primaryEmotion);
 			}
 
 			desires.RemoveAll (d => d.intensity < 0.05f);

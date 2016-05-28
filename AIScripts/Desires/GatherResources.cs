@@ -2,6 +2,7 @@
 using Scripts.AI.Beliefs;
 using System.Collections.Generic;
 using System;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Desires
 {
@@ -20,7 +21,7 @@ namespace Scripts.AI.Desires
 			return "GatherResources";
 		}
 
-		public override void updateDesire (List<Belief> beliefs)
+		public override void updateDesire (List<Belief> beliefs, Emotion emotion)
 		{
 			List<Belief> resourceBeliefs = beliefs.FindAll (b => b.Subject.tag == Elements.RESOURCE);
 			Belief villageBelief = beliefs.Find (b => b.Subject.tag == Elements.VILLAGE);
@@ -46,6 +47,9 @@ namespace Scripts.AI.Desires
 			}
 
 			this.intensity = Math.Min (1f, intensity / (selfBelief.attributes [Elements.MAXRESOURCE] - selfBelief.attributes [Elements.RESOURCE]));
+
+			// Generic boost of intensity when emotive, penalization when depressed
+			this.intensity += ((1f - this.intensity) * emotion.intensity);
 		}
 	}
 }

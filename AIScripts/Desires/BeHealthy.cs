@@ -2,6 +2,7 @@
 using Scripts.AI.Beliefs;
 using System.Collections.Generic;
 using Scripts.Utils;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Desires
 {
@@ -20,7 +21,7 @@ namespace Scripts.AI.Desires
 			return "BeHealthy";
 		}
 
-		public override void updateDesire (List<Belief> beliefs)
+		public override void updateDesire (List<Belief> beliefs, Emotion emotion)
 		{
 			Belief selfBelief = beliefs.Find (b => b.Subject.Equals (self));
 
@@ -28,6 +29,9 @@ namespace Scripts.AI.Desires
 			float maxHealth = selfBelief.attributes [Elements.MAXHEALTH];
 
 			this.intensity = 1f - (currentHealth / maxHealth);
+
+			// Generic boost of intensity when emotive, penalization when depressed
+			this.intensity += ((1f - this.intensity) * emotion.intensity);
 		}
 	}
 }

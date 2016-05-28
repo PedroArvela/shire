@@ -2,6 +2,7 @@
 using System.Collections;
 using Scripts.AI.Beliefs;
 using System.Collections.Generic;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Desires
 {
@@ -16,6 +17,6 @@ namespace Scripts.AI.Desires
 		public float intensity;
 
 		public abstract string Type ();
-		public abstract void updateDesire (List<Belief> beliefs);
+		public abstract void updateDesire (List<Belief> beliefs, Emotion emotion);
 	}
 }
