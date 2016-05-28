@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
@@ -23,7 +24,7 @@ namespace Scripts.AI.Actions
 			if (Vector3.Distance (go.transform.position, position) > stopDistance) {
                 
                 go.GetComponent<NavMeshAgent>().SetDestination(position);
-                go.GetComponent<NavMeshAgent>().speed = 3.5f;
+                go.GetComponent<NavMeshAgent>().speed = go.GetComponent<CharacterVars>().walkSpeed;
                 go.GetComponent<NavMeshAgent>().Resume();
                
                 go.GetComponent<Animator>().SetBool("isWalking", true);

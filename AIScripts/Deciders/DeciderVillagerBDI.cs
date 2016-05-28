@@ -76,14 +76,20 @@ namespace Scripts.AI.Deciders
 
 		private void deliberateDesires ()
 		{
+
+
 		}
 
 		private void filterIntentions ()
 		{
+
+
 		}
 
 		private void makePlan ()
 		{
+
+
 		}
 
 		private bool planIsSound ()

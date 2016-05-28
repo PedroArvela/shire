@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
@@ -17,7 +18,7 @@ namespace Scripts.AI.Actions
 		public override void Execute (GameObject go)
 		{
 			NavMeshHit myNavHit;
-			Vector3 tg = go.gameObject.transform.forward.normalized * 5;
+			Vector3 tg = go.gameObject.transform.forward.normalized * go.GetComponent<CharacterVars>().wanderSphereDistance;
             float randomAngle = (Random.value * 40) - 20;
 
 
@@ -25,7 +26,7 @@ namespace Scripts.AI.Actions
             //tg = Quaternion.AngleAxis (randomAngle, Vector3.up) * tg;
             tg = tg + go.transform.position;
 
-            tg = tg + (Random.insideUnitSphere * 1);
+            tg = tg + (Random.insideUnitSphere * go.GetComponent<CharacterVars>().wanderSphereRadius);
 
             if (go.GetComponent<NavMeshAgent>().destination != null && Vector3.Distance(go.GetComponent<NavMeshAgent>().destination, go.transform.position) < 15)
             {
@@ -35,7 +36,7 @@ namespace Scripts.AI.Actions
             if (NavMesh.SamplePosition (tg, out myNavHit, 100, -1)) {
                 
                 go.GetComponent<NavMeshAgent> ().SetDestination (myNavHit.position + ((myNavHit.position - tg) * 5));
-                go.GetComponent<NavMeshAgent>().speed = 3.5f;
+                go.GetComponent<NavMeshAgent>().speed = go.GetComponent<CharacterVars>().walkSpeed;
                 go.GetComponent<NavMeshAgent> ().Resume ();
 				go.GetComponent<Animator> ().SetBool ("isWalking", true);
                 go.GetComponent<Animator>().SetBool("isRunning", false);

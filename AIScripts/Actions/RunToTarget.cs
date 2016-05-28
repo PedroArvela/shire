@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
@@ -24,7 +25,7 @@ namespace Scripts.AI.Actions
             {
 
                 go.GetComponent<NavMeshAgent>().SetDestination(position);
-                go.GetComponent<NavMeshAgent>().speed = 6.0f;
+                go.GetComponent<NavMeshAgent>().speed = go.GetComponent<CharacterVars>().runSpeed;
                 go.GetComponent<NavMeshAgent>().Resume();
 
                 go.GetComponent<Animator>().SetBool("isWalking", true);

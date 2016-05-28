@@ -54,6 +54,7 @@ namespace Scripts.AI.Characters
 
             if (gameObject.tag == "Dead")
             {
+                gameObject.GetComponent<NavMeshAgent>().Stop();
                 this.enabled = false;
             }
         }

@@ -8,6 +8,10 @@ namespace Scripts.Utils
 	{
 		public float FoVAngle = 110f;
 		public float HearingRange = 5f;
+        public float runSpeed = 6.0f;
+        public float walkSpeed = 3.5f;
+        public float wanderSphereRadius = 1.0f;
+        public float wanderSphereDistance = 5.0f; 
 
 		public float currentHealth;
 		public float currentEnergy;
