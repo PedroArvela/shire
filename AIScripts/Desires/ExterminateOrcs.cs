@@ -5,8 +5,9 @@ namespace Scripts.AI.Desires
 {
 	public class ExterminateOrcs : Desire
 	{
-		public ExterminateOrcs (float intensity)
+		public ExterminateOrcs (GameObject self, float intensity)
 		{
+			this.self = self;
 			this.targetType = Elements.ORC;
 			this.attribute = Elements.COUNT;
 			this.goal = FuzzyLogicGoal.None;

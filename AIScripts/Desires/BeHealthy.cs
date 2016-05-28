@@ -1,17 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Scripts.AI.Beliefs;
+using System.Collections.Generic;
+using Scripts.Utils;
 
 namespace Scripts.AI.Desires
 {
 	public class BeHealthy : Desire
 	{
-		public BeHealthy (float intensity)
+		public BeHealthy (GameObject self, float intensity)
 		{
+			this.self = self;
 			this.targetType = Elements.SELF;
 			this.attribute = Elements.HEALTH;
 			this.goal = FuzzyLogicGoal.Increase;
 
 			this.intensity = intensity;
+		}
+
+		public override void updateDesire (List<Belief> beliefs)
+		{
+			Belief selfBelief = beliefs.Find (b => b.Subject.Equals (self));
+
+			float currentHealth = self.GetComponent<CharacterVars> ().currentHealth;
+			float maxHealth = self.GetComponent<CharacterVars> ().maxHealth;
+
+			this.intensity = currentHealth / maxHealth;
 		}
 	}
 }
