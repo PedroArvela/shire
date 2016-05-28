@@ -5,6 +5,7 @@ using Scripts.AI.Beliefs;
 using Scripts.AI.Desires;
 using Scripts.AI.Intentions;
 using System.Collections.Generic;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Deciders
 {
@@ -104,7 +105,11 @@ namespace Scripts.AI.Deciders
 		public List<Belief> beliefs;
 		List<Desire> desires;
 		Intention currentIntention;
+
 		Plan plan;
+
+		Emotion blankEmotion;
+	
 
 
         
@@ -116,6 +121,8 @@ namespace Scripts.AI.Deciders
 			desires = new List<Desire> ();
 			//intentions = new List<Intention> ();
 			plan = new Stack<AIAction> ();
+			blankEmotion.intensity = 0;
+			blankEmotion.valence = 0;
 		}
 
 		public override AIAction Decide (List<Perception> perceptions)
@@ -191,7 +198,7 @@ namespace Scripts.AI.Deciders
 			}
 
 			foreach (Desire desire in desires) {
-				desire.updateDesire (beliefs);
+				desire.updateDesire (beliefs, blankEmotion);
 			}
 
 			desires.RemoveAll (d => d.intensity < 0.05f);

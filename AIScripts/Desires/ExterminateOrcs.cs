@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Scripts.AI.Beliefs;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Desires
 {
@@ -19,7 +20,7 @@ namespace Scripts.AI.Desires
 			return "ExterminateOrcs";
 		}
 
-		public override void updateDesire (List<Belief> beliefs)
+		public override void updateDesire (List<Belief> beliefs, Emotion emotion)
 		{
 			List<Belief> orcBeliefs = beliefs.FindAll (b => b.Subject.tag == Elements.ORC);
 			float maxDesire = 0;
@@ -42,6 +43,9 @@ namespace Scripts.AI.Desires
 			}
 
 			this.intensity = desire / maxDesire;
+
+			// If angry, give intensity, otherwise remove
+			this.intensity -= (1f - this.intensity) * emotion.intensity * emotion.valence;
 		}
 	}
 }
