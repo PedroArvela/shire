@@ -18,7 +18,9 @@ namespace Scripts.AI.Actions
 			Name = "GatherResource";
 			Goto = new GoToTarget (tar.transform.position);
 			gatherDistance = 5.0f;
-            
+            preConditions = new List<string> { "ResourceInSight" };
+            postConditions = new List<string> { "HasResources" };
+
         }
 
 		public override void Execute (GameObject go)

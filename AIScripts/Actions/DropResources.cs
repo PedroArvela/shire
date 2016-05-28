@@ -17,7 +17,8 @@ namespace Scripts.AI.Actions
 			target = GameObject.FindGameObjectWithTag ("Village");
             Goto = new GoToTarget(target.transform.position);
             distanceToDrop = 5.0f;
-            
+            preConditions = new List<string> { "HasResources" };
+            postConditions = new List<string> { "VillageIncreasedResources", "IsInVillage" };
         }
 
 		public override void Execute (GameObject go)

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Scripts.Utils;
 
 namespace Scripts.AI.Actions
@@ -13,7 +14,9 @@ namespace Scripts.AI.Actions
 		public Wander ()
 		{
 			Name = "Wander";
-		}
+            preConditions = new List<string> { };
+            postConditions = new List<string> { "ResourceInSight", "OrcInSight", "VillagerInSight" };
+        }
 
 		public override void Execute (GameObject go)
 		{
