@@ -29,8 +29,29 @@ namespace Scripts.AI.Beliefs
 
 				Location = candidates [0].target.transform.position;
 			}
-            
-		}
+
+            if((attributes[Elements.HEALTH] / attributes[Elements.MAXHEALTH]) >= 0.7 && conditions.Count == 0)
+            {
+                conditions.Add("Healthy");
+
+            } else if((attributes[Elements.HEALTH] / attributes[Elements.MAXHEALTH]) < 0.7)
+            {
+                conditions.Clear();
+
+            }
+
+            if ((attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]) >= 0.7 && conditions.Count == 0)
+            {
+                conditions.Add("HasResources");
+
+            }
+            else if ((attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]) < 0.7)
+            {
+                conditions.Clear();
+
+            }
+
+        }
 
 		public override void appraise (Emotion e)
 		{

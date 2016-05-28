@@ -10,6 +10,7 @@ namespace Scripts.AI.Beliefs
 		public GameObject Subject;
 		public Vector3 Location;
 		public SortedDictionary<string, float> attributes;
+        public List<string> conditions;
 		public float Certainty;
 
 		public abstract void updateBelief (List<Perception> p);

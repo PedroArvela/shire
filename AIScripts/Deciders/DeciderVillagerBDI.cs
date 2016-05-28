@@ -64,6 +64,17 @@ namespace Scripts.AI.Deciders
         }
     }
 
+    class HealAtVillageBare : ActionBareBone
+    {
+
+        public HealAtVillageBare()
+        {
+            actionName = "HealAtVillage";
+            preConditions = new List<string> { "IsInVillage" };
+            postConditions = new List<string> { "Healthy" };
+        }
+    }
+
     class DropResourcesBare : ActionBareBone
     {
 
@@ -90,10 +101,10 @@ namespace Scripts.AI.Deciders
 
     public class DeciderVillagerBDI : Decider
 	{
-		List<Belief> beliefs;
+		public List<Belief> beliefs;
 		List<Desire> desires;
 		Intention currentIntention;
-		AIAction plan;
+		Plan plan;
 
 
         
@@ -128,15 +139,10 @@ namespace Scripts.AI.Deciders
 			return plan;
 		}
 
-		private void reviseBeliefs (List<Perception> perceptions)
+		public void reviseBeliefs (List<Perception> perceptions)
 		{
 			// Update each belief
-			foreach (Belief b in beliefs) {
-				b.updateBelief (perceptions);
-			}
-
-			// Remove all beliefs no longer certain
-			beliefs.RemoveAll (b => b.Uncertain ());
+			
 
 			// Add new beliefs
 			foreach (Perception perception in perceptions) {
@@ -157,7 +163,20 @@ namespace Scripts.AI.Deciders
 					}
 				}
 			}
-		}
+
+
+            foreach (Belief b in beliefs)
+            {
+                b.updateBelief(perceptions);
+            }
+
+            // Remove all beliefs no longer certain
+            beliefs.RemoveAll(b => b.Uncertain());
+
+
+
+
+        }
 
 		private void deliberateDesires ()
 		{
@@ -221,19 +240,23 @@ namespace Scripts.AI.Deciders
                     case "GatherResource": newPlan.Push(new GatherResource(null)); break;
                     case "Wander": newPlan.Push(new Wander()); break;
                     case "AttackTarget": newPlan.Push(new AttackTarget(gameObject, null)); break;
+                    case "HealAtVillage": newPlan.Push(new HealAtVillage()); break;
 
                 }
 
             }
 
 
-            plan = newPlan;
+
+            plan = new Plan(newPlan, this);
+
+            plan.Goal = newPlanBareBone[0].postConditions;
 
         }
 
 		private bool planIsSound ()
 		{
-			return plan.Count != 0;
+            return plan.Goal.Exists(str => str.Equals(currentIntention.Goal));
 		}
 
 		private bool planIsPossible ()
@@ -243,7 +266,7 @@ namespace Scripts.AI.Deciders
 
 		private bool planSucceeded ()
 		{
-			return false;
+			return plan.suceeded;
 		}
 
 		private bool shouldReconsider ()

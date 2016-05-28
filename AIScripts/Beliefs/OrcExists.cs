@@ -10,6 +10,7 @@ namespace Scripts.AI.Beliefs
 	{
 		public OrcExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
+            conditions = new List<string>();
 		}
 
 		public override void updateBelief (List<Perception> perceptions)
@@ -28,6 +29,19 @@ namespace Scripts.AI.Beliefs
 			} else if (attributes.ContainsKey (Elements.ATTACK) && attributes [Elements.ATTACK] > 0f) {
 				attributes [Elements.ATTACK] -= 0.1f;
 			}
+
+
+
+            if(Certainty == 1 && conditions.Count == 0)
+            {
+                conditions.Add( "OrcInSight");
+            } else if (Certainty < 1)
+            {
+                conditions.Clear();
+            }
+
+
+
 		}
 
 		public override void appraise (Emotion e)
