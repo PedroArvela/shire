@@ -5,7 +5,7 @@ namespace Scripts.AI.Perceptions
 {
 	public class CanSee : Perception
 	{
-		public CanSee (GameObject target)
+		public CanSee (GameObject target) : base()
 		{
 			Name = "CanSee";
 			this.target = target;
