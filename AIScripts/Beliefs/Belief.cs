@@ -4,7 +4,7 @@ using Scripts.AI.Perceptions;
 
 namespace Scripts.AI.Beliefs
 {
-	public abstract class Befief
+	public abstract class Belief
 	{
 		public GameObject Subject;
 		public Vector3 Location;
@@ -23,7 +23,7 @@ namespace Scripts.AI.Beliefs
 			return Certainty <= 0.2;
 		}
 
-		private Befief (GameObject subject, Vector3 location, float certainty)
+		protected Belief (GameObject subject, Vector3 location, float certainty)
 		{
 			Subject = subject;
 			Location = location;

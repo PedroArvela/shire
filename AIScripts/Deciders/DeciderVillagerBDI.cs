@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Scripts.AI.Actions;
 using Scripts.AI.Perceptions;
 using Scripts.AI.Beliefs;
@@ -11,10 +10,18 @@ namespace Scripts.AI.Deciders
 {
 	public class DeciderVillagerBDI : Decider
 	{
-		List<Befief> beliefs;
+		List<Belief> beliefs;
 		List<Desire> desires;
 		List<Intention> intentions;
 		List<AIAction> plan;
+
+		public DeciderVillagerBDI ()
+		{
+			beliefs = new List<Desire> ();
+			desires = new List<Desire> ();
+			intentions = new List<Intention> ();
+			plan = new List<AIAction> ();
+		}
 
 		public override AIAction Decide (List<Perception> perceptions)
 		{
@@ -54,12 +61,12 @@ namespace Scripts.AI.Deciders
 
 		private bool planIsSound ()
 		{
-			return false;
+			return plan.Count != 0;
 		}
 
 		private bool planIsPossible ()
 		{
-			return false;
+			return true;
 		}
 
 		private bool planSucceeded ()
@@ -69,7 +76,7 @@ namespace Scripts.AI.Deciders
 
 		private bool shouldReconsider ()
 		{
-			return false;
+			return true;
 		}
 	}
 }
