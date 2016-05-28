@@ -106,6 +106,21 @@ namespace Scripts.AI.Deciders
 
 			totalValence = totalValence / emotions.Count;
 			totalIntensity = totalIntensity / emotions.Count;
+
+			if (totalValence > 1f) {
+				totalValence = 1f;
+			} else if (totalValence < -1f) {
+				totalValence = -1f;
+			}
+
+			if (totalIntensity > 1f) {
+				totalIntensity = 1f;
+			} else if (totalIntensity < -1f) {
+				totalIntensity = -1f;
+			}
+
+			primaryEmotion.valence = totalValence;
+			primaryEmotion.intensity = totalIntensity;
 		}
 
 		private void deliberateDesires ()
