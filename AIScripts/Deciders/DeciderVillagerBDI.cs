@@ -21,12 +21,12 @@ namespace Scripts.AI.Deciders
 			reviseBeliefs (perceptions);
 
 			if (plan.Count == 0 || planSucceeded () || !planIsPossible () || shouldReconsider ()) {
-				deliberateDesires ();
-				filterIntentions ();
-
 				if (!planIsSound ()) {
-					makePlan ();
+					deliberateDesires ();
+					filterIntentions ();
 				}
+
+				makePlan ();
 			}
 
 			AIAction action = plan [0];
