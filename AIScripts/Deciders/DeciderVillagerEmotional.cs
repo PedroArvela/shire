@@ -77,7 +77,7 @@ namespace Scripts.AI.Deciders
 			}
 		}
 
-		private void appraiseEmotions (List<Perception> beliefs)
+		private void appraiseEmotions (List<Belief> beliefs)
 		{
 			// TODO
 		}
