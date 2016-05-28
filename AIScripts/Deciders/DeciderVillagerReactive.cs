@@ -11,7 +11,14 @@ namespace Scripts.AI.Deciders
 	{
 		public override Actions.AIAction Decide (List<Perception> perceptions)
 		{
-            if (perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.HEALTH] < 30)))
+
+            if (perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.HEALTH] < 70)) && Vector3.Distance(gameObject.transform.position, GameObject.FindGameObjectWithTag("Village").transform.position) < 5) 
+            {
+                //Debug.Log ("Decided Attack");
+                Name = "HealAtVillage";
+
+                return new HealAtVillage();
+            } else if (perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.HEALTH] < 30)))
             {
                 //Debug.Log ("Decided Attack");
                 Name = "FleeToVillage";

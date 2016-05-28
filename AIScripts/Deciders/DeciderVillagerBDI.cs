@@ -120,7 +120,7 @@ namespace Scripts.AI.Deciders
 			beliefs = new List<Belief> ();
 			desires = new List<Desire> ();
 			//intentions = new List<Intention> ();
-			plan = new Stack<AIAction> ();
+			//plan = new Stack<AIAction> ();
 			blankEmotion.intensity = 0;
 			blankEmotion.valence = 0;
 		}
@@ -129,7 +129,7 @@ namespace Scripts.AI.Deciders
 		{
 			reviseBeliefs (perceptions);
 
-			if (plan.Count == 0 || planSucceeded () || !planIsPossible ()) {
+			if (plan != null || planSucceeded () || !planIsPossible ()) {
 				if (shouldReconsider ()) {
 					deliberateDesires ();
 					filterIntentions ();
@@ -206,7 +206,31 @@ namespace Scripts.AI.Deciders
 
 		private void filterIntentions ()
 		{
+            Desire choosenDesire = null;
 
+            foreach(Desire d in desires)
+            {
+                if(choosenDesire == null)
+                {
+                    choosenDesire = d;
+                    continue;
+                }
+
+                if(d.intensity < choosenDesire.intensity)
+                {
+                    choosenDesire = d;
+                }
+            }
+
+
+            switch (choosenDesire.Type())
+            {
+                case ("GatherResources"): currentIntention = new IncreaseVillageResources(); break;
+                case ("ExterminateOrcs"): currentIntention = new KillOrcs(); break;
+                case ("BeHealthy"): currentIntention = new BecomeHealthy(); break;
+
+
+            }
 
 		}
 

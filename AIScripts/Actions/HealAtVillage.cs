@@ -15,8 +15,8 @@ namespace Scripts.AI.Actions
         {
             Name = "FleeToVillage";
             target = GameObject.FindGameObjectWithTag("Village");
-            Goto = new RunToTarget(target.transform.position);
-            distanceToVillage = 5.0f;
+            //Goto = new RunToTarget(target.transform.position);
+            distanceToVillage = 6.0f;
             preConditions = new List<string> { "IsInVillage" };
             postConditions = new List<string> { "Healthy" };
 
@@ -32,15 +32,10 @@ namespace Scripts.AI.Actions
                 go.GetComponent<Animator>().SetBool("isWalking", false);
                 go.GetComponent<Animator>().SetBool("isRunning", false);
                 go.transform.forward = (go.transform.position - target.transform.position).normalized;
-
-
-            }
-            else
-            {
-
-                Goto.Execute(go);
+                go.GetComponent<CharacterVars>().currentHealth++;
 
             }
+            
 
 
 

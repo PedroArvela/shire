@@ -25,6 +25,7 @@ namespace Scripts.AI.Characters
 		protected AIAction currentAction = null;
 		protected Decider decider;
 
+        
 		void Awake ()
 		{
 			charVars = GetComponent<CharacterVars> ();
@@ -44,10 +45,10 @@ namespace Scripts.AI.Characters
 			InvokeRepeating ("DecideAction", 2f, 2f);
 		}
 
-        
 
-		// Update is called once per frame
-		void Update ()
+
+        // Update is called once per frame
+        public void Update ()
 		{
 			if (currentAction != null) {
 				currentAction.Execute (this.gameObject);
@@ -67,7 +68,7 @@ namespace Scripts.AI.Characters
 			//Debug.Log("TriggerListOrc:" + triggerList.Count);
 		}
 
-		void processPerceptions ()
+        public void processPerceptions ()
 		{
 			currentPerceptions.Clear ();
 			currentPerceptions.AddRange (nextPerceptions);
@@ -106,7 +107,7 @@ namespace Scripts.AI.Characters
 			}
 		}
 
-		bool inSight (Collider other)
+		public bool inSight (Collider other)
 		{
 
 			if (Vector3.Distance (other.transform.position, transform.position) <= hearingRange) {

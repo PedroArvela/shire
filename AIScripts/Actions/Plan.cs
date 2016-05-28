@@ -45,6 +45,10 @@ namespace Scripts.AI.Actions
             if (readyStep)
             {
                 currentAction = actionPlan.Pop();
+                if (currentAction.preConditions.Count > 0)
+                {
+                    currentAction.target = decider.beliefs.Find(b => b.conditions.Contains(currentAction.preConditions[0])).Subject;
+                }
             }
 
             if(currentAction != null)
