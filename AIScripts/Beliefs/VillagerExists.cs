@@ -7,7 +7,7 @@ namespace Scripts.AI.Beliefs
 {
 	public class VillagerExists : Belief
 	{
-		public VillagerExists (GameObject subject, Vector3 location) : base (subject, location, 1.0f)
+		public VillagerExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
 		}
 

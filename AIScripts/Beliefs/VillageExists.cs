@@ -5,9 +5,9 @@ using Scripts.AI.Perceptions;
 
 namespace Scripts.AI.Beliefs
 {
-	public class ResourceExists : Belief
+	public class VillageExists : Belief
 	{
-		public ResourceExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
+		public VillageExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
 		}
 

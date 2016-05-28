@@ -45,6 +45,33 @@ namespace Scripts.AI.Deciders
 
 		private void reviseBeliefs (List<Perception> perceptions)
 		{
+			// Update each belief
+			foreach (Belief b in beliefs) {
+				b.updateBelief (perceptions);
+			}
+
+			// Remove all beliefs no longer certain
+			beliefs.RemoveAll (b => b.Uncertain ());
+
+			// Add new beliefs
+			foreach (Perception perception in perceptions) {
+				if (!beliefs.Exists (b => b.Subject.Equals (perception.target))) {
+					switch (perception.targetTag) {
+					case "Orc":
+						beliefs.Add (new OrcExists (perception.target));
+						break;
+					case "Villager":
+						beliefs.Add (new VillagerExists (perception.target));
+						break;
+					case "Resource":
+						beliefs.Add (new ResourceExists (perception.target));
+						break;
+					case "Village":
+						beliefs.Add (new VillageExists (perception.target));
+						break;
+					}
+				}
+			}
 		}
 
 		private void deliberateDesires ()
