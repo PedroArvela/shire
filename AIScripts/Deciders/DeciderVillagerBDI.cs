@@ -220,7 +220,7 @@ namespace Scripts.AI.Deciders
                     case "DropResources": newPlan.Push(new DropResources()); break;
                     case "GatherResource": newPlan.Push(new GatherResource(null)); break;
                     case "Wander": newPlan.Push(new Wander()); break;
-                    case "AttackTarget": newPlan.Push(new AttackTarget(null)); break;
+                    case "AttackTarget": newPlan.Push(new AttackTarget(gameObject, null)); break;
 
                 }
 
