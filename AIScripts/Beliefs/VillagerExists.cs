@@ -19,7 +19,7 @@ namespace Scripts.AI.Beliefs
 				Certainty = 1;
 				Location = candidates [0].target.transform.position;
 			} else {
-				Certainty -= 0.05;
+				Certainty -= 0.05f;
 			}
 		}
 	}
