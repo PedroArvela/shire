@@ -19,7 +19,7 @@ namespace Scripts.AI.Deciders
                 //Debug.Log ("Decided Attack");
                 Name = "AttackVillager";
                 List<Perception> villagers = perceptions.FindAll(p => p.targetTag == "Villager");
-                return new AttackTarget(ClosestPerception(villagers).target);
+				return new AttackTarget(gameObject, ClosestPerception(villagers).target);
             } else
             {
                 //Debug.Log ("Decided Wander");
