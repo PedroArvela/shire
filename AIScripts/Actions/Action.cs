@@ -9,9 +9,10 @@ namespace Scripts.AI.Actions
 	{
 		public string Name;
 		public GameObject target;
-        
+        public List<string> preConditions;
+        public List<string> postConditions;
 
-		abstract public void Execute (GameObject go);
+        abstract public void Execute (GameObject go);
 
 		protected CharacterVars TargetCharVars ()
 		{

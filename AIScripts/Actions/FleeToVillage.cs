@@ -17,7 +17,9 @@ namespace Scripts.AI.Actions
             target = GameObject.FindGameObjectWithTag("Village");
             Goto = new RunToTarget(target.transform.position);
             distanceToVillage = 5.0f;
-            
+            preConditions = new List<string> { };
+            postConditions = new List<string> { "IsInVillage" };
+
         }
 
         public override void Execute(GameObject go)

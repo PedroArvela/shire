@@ -93,7 +93,7 @@ namespace Scripts.AI.Deciders
 		List<Belief> beliefs;
 		List<Desire> desires;
 		Intention currentIntention;
-		Stack<AIAction> plan;
+		AIAction plan;
 
 
         
@@ -123,9 +123,9 @@ namespace Scripts.AI.Deciders
 			}
 
             //execute plan?
-			AIAction action = plan.Pop();
+			
 			//plan.RemoveAt (0);
-			return action;
+			return plan;
 		}
 
 		private void reviseBeliefs (List<Perception> perceptions)

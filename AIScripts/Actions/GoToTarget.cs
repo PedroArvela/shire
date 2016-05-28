@@ -18,8 +18,9 @@ namespace Scripts.AI.Actions
 			Name = "GoToTarget";
 
 			stopDistance = 1;
-            
 
+            preConditions = new List<string> { };
+            postConditions = new List<string> { "IsAtLocation" };
 
         }
 

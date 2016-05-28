@@ -22,7 +22,9 @@ namespace Scripts.AI.Actions
 			Name = "AttackTarget";
 			Goto = new GoToTarget (tar.transform.position);
 			attackDistance = 5.0f;
-		}
+            preConditions = new List<string> { "OrcInSight", "Healthy" };
+            postConditions = new List<string> { "OrcIsDead" };
+        }
 
 
 		public override void Execute (GameObject go)
