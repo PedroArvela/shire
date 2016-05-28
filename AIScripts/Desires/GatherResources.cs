@@ -7,7 +7,7 @@ namespace Scripts.AI.Desires
 {
 	public class GatherResources : Desire
 	{
-		private GatherResources (GameObject self)
+		public GatherResources (GameObject self)
 		{
 			this.self = self;
 			this.targetType = Elements.RESOURCE;
@@ -18,13 +18,6 @@ namespace Scripts.AI.Desires
 		public override string Type ()
 		{
 			return "GatherResources";
-		}
-
-		public static override Desire generateDesire (GameObject self, List<Belief> beliefs)
-		{
-			Desire newDesire = new GatherResources (self);
-			newDesire.updateDesire (beliefs);
-			return newDesire;
 		}
 
 		public override void updateDesire (List<Belief> beliefs)
@@ -41,7 +34,7 @@ namespace Scripts.AI.Desires
 			// Have the intensity be inverse to the proportion of resources believed to be in the village
 			if (villageBelief != null) {
 				// TODO: Have in mind the certainty about this
-				this.intensity = 1f / Math.Sqrt(villageBelief.attributes [Elements.RESOURCE]);
+				this.intensity = 1f / Math.Sqrt (villageBelief.attributes [Elements.RESOURCE]);
 				return;
 			}
 
@@ -50,7 +43,7 @@ namespace Scripts.AI.Desires
 				intensity += belief.attributes [Elements.RESOURCE];
 			}
 
-			this.intensity = Math.Min(1f, intensity / (selfBelief.attributes [Elements.MAXRESOURCE] - selfBelief.attributes [Elements.RESOURCE]));
+			this.intensity = Math.Min (1f, intensity / (selfBelief.attributes [Elements.MAXRESOURCE] - selfBelief.attributes [Elements.RESOURCE]));
 		}
 	}
 }

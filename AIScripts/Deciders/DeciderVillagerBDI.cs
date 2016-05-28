@@ -77,22 +77,20 @@ namespace Scripts.AI.Deciders
 		private void deliberateDesires ()
 		{
 			if (desires.Exists (d => d.Type () == "BeHealthy")) {
-				desires.Find (d => d.Type () == "BeHealthy").updateDesire (beliefs);
-			} else {
-				desires.Add (BeHealthy.generateDesire (gameObject, beliefs));
+				desires.Add (new BeHealthy (gameObject));
 			}
-
 			if (desires.Exists (d => d.Type () == "ExterminateOrcs")) {
-				desires.Find (d => d.Type () == "ExterminateOrcs").updateDesire (beliefs);
-			} else {
-				desires.Add (ExterminateOrcs.generateDesire (gameObject, beliefs));
+				desires.Add (new ExterminateOrcs (gameObject));
+			}
+			if (!desires.Exists (d => d.Type () == "GatherResources")) {
+				desires.Add (new GatherResources (gameObject));
 			}
 
-			if (desires.Exists (d => d.Type () == "GatherResources")) {
-				desires.Find (d => d.Type () == "GatherResources").updateDesire (beliefs);
-			} else {
-				desires.Add (GatherResources.generateDesire (gameObject, beliefs));
+			foreach (Desire desire in desires) {
+				desire.updateDesire (beliefs);
 			}
+
+			desires.RemoveAll (d => d.intensity < 0.05f);
 		}
 
 		private void filterIntentions ()

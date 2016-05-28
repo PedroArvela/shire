@@ -6,7 +6,7 @@ namespace Scripts.AI.Desires
 {
 	public class ExterminateOrcs : Desire
 	{
-		private ExterminateOrcs (GameObject self)
+		public ExterminateOrcs (GameObject self)
 		{
 			this.self = self;
 			this.targetType = Elements.ORC;
@@ -17,13 +17,6 @@ namespace Scripts.AI.Desires
 		public override string Type ()
 		{
 			return "ExterminateOrcs";
-		}
-
-		public static override Desire generateDesire (GameObject self, List<Belief> beliefs)
-		{
-			Desire newDesire = new ExterminateOrcs (self);
-			newDesire.updateDesire (beliefs);
-			return newDesire;
 		}
 
 		public override void updateDesire (List<Belief> beliefs)
