@@ -23,14 +23,18 @@ namespace Scripts.AI.Actions
 			if (Vector3.Distance (go.transform.position, position) > stopDistance) {
                 
                 go.GetComponent<NavMeshAgent>().SetDestination(position);
+                go.GetComponent<NavMeshAgent>().speed = 3.5f;
                 go.GetComponent<NavMeshAgent>().Resume();
                
                 go.GetComponent<Animator>().SetBool("isWalking", true);
+                go.GetComponent<Animator>().SetBool("isRunning", false);
+                go.GetComponent<Animator>().SetBool("isAttacking", false);
                 //Debug.Log("GOTO:" + position);
             } else {
 				//Debug.Log ("Reached destination");
 				go.GetComponent<NavMeshAgent> ().Stop ();
                 go.GetComponent<Animator>().SetBool("isWalking", false);
+                go.GetComponent<Animator>().SetBool("isRunning", false);
             }
 		}
 	}

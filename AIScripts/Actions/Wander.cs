@@ -17,15 +17,31 @@ namespace Scripts.AI.Actions
 		public override void Execute (GameObject go)
 		{
 			NavMeshHit myNavHit;
-			Vector3 tg = go.gameObject.transform.forward.normalized * 10;
-			tg = Quaternion.AngleAxis ((Random.value * 20) - 10, Vector3.up) * tg;
-			tg = tg + go.transform.position;
+			Vector3 tg = go.gameObject.transform.forward.normalized * 5;
+            float randomAngle = (Random.value * 40) - 20;
 
-			if (NavMesh.SamplePosition (tg, out myNavHit, 100, -1)) {
-				go.GetComponent<NavMeshAgent> ().SetDestination (myNavHit.position + ((myNavHit.position - tg) * 5));
-				go.GetComponent<NavMeshAgent> ().Resume ();
+
+
+            //tg = Quaternion.AngleAxis (randomAngle, Vector3.up) * tg;
+            tg = tg + go.transform.position;
+
+            tg = tg + (Random.insideUnitSphere * 1);
+
+            if (go.GetComponent<NavMeshAgent>().destination != null && Vector3.Distance(go.GetComponent<NavMeshAgent>().destination, go.transform.position) < 15)
+            {
+                //tg = Vector3.Lerp(tg, go.GetComponent<NavMeshAgent>().destination, 0.5f);
+            }
+
+            if (NavMesh.SamplePosition (tg, out myNavHit, 100, -1)) {
+                
+                go.GetComponent<NavMeshAgent> ().SetDestination (myNavHit.position + ((myNavHit.position - tg) * 5));
+                go.GetComponent<NavMeshAgent>().speed = 3.5f;
+                go.GetComponent<NavMeshAgent> ().Resume ();
 				go.GetComponent<Animator> ().SetBool ("isWalking", true);
-			}
+                go.GetComponent<Animator>().SetBool("isRunning", false);
+                go.GetComponent<Animator>().SetBool("isAttacking", false);
+
+            }
 		}
 	}
 }

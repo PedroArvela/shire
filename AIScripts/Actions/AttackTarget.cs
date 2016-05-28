@@ -15,7 +15,7 @@ namespace Scripts.AI.Actions
 			target = tar;
 			Name = "AttackTarget";
 			Goto = new GoToTarget (tar.transform.position);
-			attackDistance = 7.0f;
+			attackDistance = 5.0f;
 		}
 
 		public override void Execute (GameObject go)
@@ -25,23 +25,24 @@ namespace Scripts.AI.Actions
 			if (Vector3.Distance (go.transform.position, target.transform.position) < attackDistance) {
 				go.GetComponent<NavMeshAgent> ().Stop ();
 				anim.SetBool ("isWalking", false);
-
+                go.transform.forward = (target.transform.position - go.transform.position).normalized;
 				if (anim.GetCurrentAnimatorStateInfo (0).IsName ("Attack") && anim.GetBool ("isAttacking")) {
 					TargetCharVars ().currentHealth -= 10;
 					anim.SetBool ("isAttacking", false);
-					Debug.Log ("Attack");
-				} else if (!anim.GetCurrentAnimatorStateInfo (0).IsName ("Attack")) {
+					//if(go.tag == "Orc") Debug.Log ("Attack Orc");
+                    //Debug.Log(target);
+                } else if (!anim.GetCurrentAnimatorStateInfo (0).IsName ("Attack")) {
 					anim.SetBool ("isAttacking", true);
 				}
                 
 				//attackTarget.gameObject.GetComponent<CharacterVars>().currentHealth--;
-				Debug.Log (target);
-				Debug.Log ("Attacking");
+				
+				
 				return;
 			} else {
 				Goto.position = target.transform.position;
 				Goto.Execute (go);
-				Debug.Log ("Moving to Attack");
+
 				return;
 			}
 		}

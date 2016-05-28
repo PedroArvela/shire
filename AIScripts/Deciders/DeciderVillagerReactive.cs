@@ -11,7 +11,14 @@ namespace Scripts.AI.Deciders
 	{
 		public override Actions.AIAction Decide (List<Perception> perceptions)
 		{
-			if (perceptions.Exists (p => p.targetTag == "Orc")) {
+            if (perceptions.Exists(p => p.Name == "IsLowHealth"))
+            {
+                //Debug.Log ("Decided Attack");
+                Name = "FleeToVillage";
+                
+                return new FleeToVillage();
+            }
+            else if(perceptions.Exists (p => p.targetTag == "Orc")) {
                 //Debug.Log ("Decided Attack");
                 Name = "AttackOrc";
 				List<Perception> orcs = perceptions.FindAll (p => p.targetTag == "Orc");
@@ -21,14 +28,10 @@ namespace Scripts.AI.Deciders
                 Name = "Gather";
                 List<Perception> resources = perceptions.FindAll(p => p.targetTag == "Resource" && p.target.GetComponent<ResourceVars>().currentResource > 0);
                 return new GatherResource (ClosestPerception (resources).target);
-			} else if (perceptions.Exists (p => p.Name == "IsNear" && p.targetTag == "Village") && CharVars ().currentResource >= CharVars ().maxResource) {
-                //Debug.Log ("Drop Resources");
-                Name = "DropResources";
-                return new DropResources ();
 			} else if (CharVars ().currentResource >= CharVars ().maxResource) {
                 //Debug.Log ("Go To Village: " + GameObject.FindGameObjectWithTag ("Village").transform.position);
-                Name = "Goto Village";
-                return new GoToTarget (GameObject.FindGameObjectWithTag ("Village").gameObject.transform.position);
+                Name = "DropResources";
+                return new DropResources();
 			} else {
                 //Debug.Log ("Decided Wander");
                 Name = "Wander";

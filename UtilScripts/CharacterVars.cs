@@ -9,12 +9,31 @@ namespace Scripts.Utils
 		public float FoVAngle = 110f;
 		public float HearingRange = 5f;
 
-		public int currentHealth;
-		public int currentEnergy;
-		public int currentResource;
+		public float currentHealth;
+		public float currentEnergy;
+		public float currentResource;
 
 		public int maxHealth;
 		public int maxEnergy;
 		public int maxResource;
-	}
+
+
+        void Update()
+        {
+
+            if(currentHealth <= 0 && gameObject.tag != "Dead")
+            {
+                gameObject.GetComponent<Animator>().SetTrigger("Dieded");
+                this.gameObject.tag = "Dead";
+                
+
+            }
+
+
+        }
+
+
+    }
+
+    
 }

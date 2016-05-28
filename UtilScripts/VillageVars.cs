@@ -5,6 +5,6 @@ namespace Scripts.Utils
 {
 	public class VillageVars : MonoBehaviour
 	{
-		public int currentResources;
+		public float currentResources;
 	}
 }
