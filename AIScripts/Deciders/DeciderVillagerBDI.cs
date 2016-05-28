@@ -8,19 +8,103 @@ using System.Collections.Generic;
 
 namespace Scripts.AI.Deciders
 {
-	public class DeciderVillagerBDI : Decider
+
+
+    abstract class ActionBareBone
+    {
+
+        public string actionName;
+        public List<string> preConditions;
+        public List<string> postConditions;
+
+    }
+
+    class GoToTargetBare : ActionBareBone
+    {
+
+        public GoToTargetBare()
+        {
+            actionName = "GoToTarget";
+            preConditions = new List<string> { };
+            postConditions = new List<string> { "IsAtLocation" };
+        }
+    }
+
+    class WanderBare : ActionBareBone
+    {
+
+        public WanderBare()
+        {
+            actionName = "Wander";
+            preConditions = new List<string> { };
+            postConditions = new List<string> { "ResourceInSight", "OrcInSight", "VillagerInSight" };
+        
+        }
+    }
+
+    class AttackTargetBare : ActionBareBone
+    {
+
+        public AttackTargetBare()
+        {
+            actionName = "AttackTarget";
+            preConditions = new List<string> { "OrcInSight", "Healthy" };
+            postConditions = new List<string> { "OrcIsDead" };
+        }
+    }
+
+    class FleeToVillageBare : ActionBareBone
+    {
+
+        public FleeToVillageBare()
+        {
+            actionName = "FleeToVillage";
+            preConditions = new List<string> { };
+            postConditions = new List<string> { "IsInVillage" };
+        }
+    }
+
+    class DropResourcesBare : ActionBareBone
+    {
+
+        public DropResourcesBare()
+        {
+            actionName = "DropResources";
+            preConditions = new List<string> { "HasResources" };
+            postConditions = new List<string> { "VillageIncreasedResources", "IsInVillage" };
+        }
+    }
+
+
+    class GatherResourceBare : ActionBareBone
+    {
+
+        public GatherResourceBare()
+        {
+            actionName = "GatherResource";
+            preConditions = new List<string> { "ResourceInSight" };
+            postConditions = new List<string> { "HasResources" };
+        }
+    }
+
+
+    public class DeciderVillagerBDI : Decider
 	{
 		List<Belief> beliefs;
 		List<Desire> desires;
-		List<Intention> intentions;
-		List<AIAction> plan;
+		Intention currentIntention;
+		Stack<AIAction> plan;
+
+
+        
+
 
 		public DeciderVillagerBDI ()
 		{
 			beliefs = new List<Belief> ();
 			desires = new List<Desire> ();
-			intentions = new List<Intention> ();
-			plan = new List<AIAction> ();
+			//intentions = new List<Intention> ();
+			plan = new Stack<AIAction> ();
 		}
 
 		public override AIAction Decide (List<Perception> perceptions)
@@ -38,8 +122,9 @@ namespace Scripts.AI.Deciders
 				}
 			}
 
-			AIAction action = plan [0];
-			plan.RemoveAt (0);
+            //execute plan?
+			AIAction action = plan.Pop();
+			//plan.RemoveAt (0);
 			return action;
 		}
 
@@ -101,9 +186,50 @@ namespace Scripts.AI.Deciders
 
 		private void makePlan ()
 		{
+            List<ActionBareBone> possibleActions = new List<ActionBareBone> { new WanderBare(), new AttackTargetBare(), new FleeToVillageBare(), new DropResourcesBare(),  new GatherResourceBare()};
+            List<ActionBareBone> newPlanBareBone = new List<ActionBareBone>();
+            Stack<AIAction> newPlan = new Stack<AIAction>();
+            Stack<string> currentConditions = new Stack<string>();
+            currentConditions.Push(currentIntention.Goal);
+
+            while(currentConditions.Count > 0)
+            {
+                string preCondition = currentConditions.Pop();
+                ActionBareBone possibleAction = possibleActions.Find(action => action.postConditions.Contains(preCondition));
+                if (possibleAction != null)
+                {
+                    newPlanBareBone.Add(possibleAction);
+                    foreach(string s in possibleAction.preConditions)
+                    {
+                        currentConditions.Push(s);
+                    }
+                    //continue;
+                } 
+
+            }
+
+            
+
+            foreach (ActionBareBone abb in newPlanBareBone)
+            {
+                
+                switch (abb.actionName) {
+
+                    case "GoToTarget": newPlan.Push(new GoToTarget(new Vector3(0,0,0))); break;
+                    case "FleeToVillage": newPlan.Push(new FleeToVillage()); break;
+                    case "DropResources": newPlan.Push(new DropResources()); break;
+                    case "GatherResource": newPlan.Push(new GatherResource(null)); break;
+                    case "Wander": newPlan.Push(new Wander()); break;
+                    case "AttackTarget": newPlan.Push(new AttackTarget(null)); break;
+
+                }
+
+            }
 
 
-		}
+            plan = newPlan;
+
+        }
 
 		private bool planIsSound ()
 		{

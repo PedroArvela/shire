@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Scripts.Utils;
 
 namespace Scripts.AI.Actions
@@ -10,13 +11,14 @@ namespace Scripts.AI.Actions
 
 		private float attackDistance { get; set; }
 
-		public AttackTarget (GameObject tar)
-		{
-			target = tar;
-			Name = "AttackTarget";
-			Goto = new GoToTarget (tar.transform.position);
-			attackDistance = 5.0f;
-		}
+        public AttackTarget(GameObject tar)
+        {
+            target = tar;
+            Name = "AttackTarget";
+            Goto = new GoToTarget(tar.transform.position);
+            attackDistance = 5.0f;
+            
+        }
 
 		public override void Execute (GameObject go)
 		{

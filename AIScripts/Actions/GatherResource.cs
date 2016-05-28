@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using Scripts.Utils;
 
@@ -17,7 +18,8 @@ namespace Scripts.AI.Actions
 			Name = "GatherResource";
 			Goto = new GoToTarget (tar.transform.position);
 			gatherDistance = 5.0f;
-		}
+            
+        }
 
 		public override void Execute (GameObject go)
 		{

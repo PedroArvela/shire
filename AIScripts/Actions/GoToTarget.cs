@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Scripts.Utils;
 
 namespace Scripts.AI.Actions
@@ -17,7 +18,10 @@ namespace Scripts.AI.Actions
 			Name = "GoToTarget";
 
 			stopDistance = 1;
-		}
+            
+
+
+        }
 
 		public override void Execute (GameObject go)
 		{

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Scripts.Utils;
 
 namespace Scripts.AI.Actions
@@ -16,6 +17,7 @@ namespace Scripts.AI.Actions
             target = GameObject.FindGameObjectWithTag("Village");
             Goto = new RunToTarget(target.transform.position);
             distanceToVillage = 5.0f;
+            
         }
 
         public override void Execute(GameObject go)
