@@ -17,7 +17,7 @@ namespace Scripts.AI.Deciders
 
 		public DeciderVillagerBDI ()
 		{
-			beliefs = new List<Desire> ();
+			beliefs = new List<Belief> ();
 			desires = new List<Desire> ();
 			intentions = new List<Intention> ();
 			plan = new List<AIAction> ();
