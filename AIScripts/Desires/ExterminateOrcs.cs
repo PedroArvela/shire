@@ -32,7 +32,7 @@ namespace Scripts.AI.Desires
 			// with a lot of health.
 			foreach (Belief orcBelief in orcBeliefs) {
 				float orcHealth = orcBelief.attributes [Elements.HEALTH];
-				float maxOrcHealth = orcBelief.attributes [Elements.MAX_HEALTH];
+				float maxOrcHealth = orcBelief.attributes [Elements.MAXHEALTH];
 				float certainty = orcBelief.Certainty;
 
 				maxDesire += maxOrcHealth;

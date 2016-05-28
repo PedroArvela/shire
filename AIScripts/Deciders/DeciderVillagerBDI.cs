@@ -76,8 +76,7 @@ namespace Scripts.AI.Deciders
 
 		private void deliberateDesires ()
 		{
-
-
+			
 		}
 
 		private void filterIntentions ()

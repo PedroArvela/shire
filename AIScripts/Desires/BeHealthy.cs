@@ -23,7 +23,7 @@ namespace Scripts.AI.Desires
 			Belief selfBelief = beliefs.Find (b => b.Subject.Equals (self));
 
 			float currentHealth = selfBelief.attributes [Elements.HEALTH];
-			float maxHealth = selfBelief.attributes [Elements.MAX_HEALTH];
+			float maxHealth = selfBelief.attributes [Elements.MAXHEALTH];
 
 			this.intensity = 1 - (currentHealth / maxHealth);
 		}
