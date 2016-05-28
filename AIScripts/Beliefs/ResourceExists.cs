@@ -11,17 +11,20 @@ namespace Scripts.AI.Beliefs
 		public ResourceExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
             conditions = new List<string>();
+            Name = "ResourceExists";
+            attributes = new SortedDictionary<string, float>();
         }
 
 		public override void updateBelief (List<Perception> perceptions)
 		{
-            List<Perception> candidates = perceptions.FindAll(p => p.target.Equals(Subject));
+            Perception candidate = perceptions.Find(p => p.target.Equals(Subject));
 
-            if (candidates.Count > 0 && conditions.Count == 0)
+            if (candidate != null)
             {
+                attributes[Elements.RESOURCE] = candidate.attributes[Elements.RESOURCE];
+                attributes[Elements.MAXRESOURCE] = candidate.attributes[Elements.MAXRESOURCE];
                 conditions.Add("ResourceInSight");
-            }
-            else if (candidates.Count == 0)
+            }   else
             {
                 conditions.Clear();
             }

@@ -13,7 +13,7 @@ namespace Scripts.AI.Actions
         public Stack<AIAction> actionPlan;
         public AIAction currentAction;
         public List<string> Goal;
-        public bool suceeded;
+        public bool suceeded = false;
 
         public Plan(Stack<AIAction> actions, DeciderVillagerBDI dec)
         {

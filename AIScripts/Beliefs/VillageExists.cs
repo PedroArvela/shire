@@ -10,12 +10,22 @@ namespace Scripts.AI.Beliefs
 	{
 		public VillageExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
+            Name = "VillageExists";
+            attributes = new SortedDictionary<string, float>();
+
 		}
 
 		public override void updateBelief (List<Perception> perceptions)
 		{
-			// TODO: update based on certainty of wether there are resources or not
-		}
+            Perception candidate = perceptions.Find(p => p.target.Equals(Subject));
+
+            if (candidate != null )
+            {
+                attributes[Elements.RESOURCE] =  candidate.attributes[Elements.RESOURCE];
+            }
+            
+
+        }
 
 		public override void appraise (Emotion e)
 		{

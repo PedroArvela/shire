@@ -12,8 +12,11 @@ namespace Scripts.AI.Beliefs
 		// Use this for initialization
 		public IExist (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
-            
-		}
+            Name = "IExist";
+            conditions = new List<string>();
+            attributes = new SortedDictionary<string, float>();
+
+        }
 
 		public override void updateBelief (List<Perception> perceptions)
 		{

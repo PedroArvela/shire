@@ -12,11 +12,15 @@ namespace Scripts.AI.Actions
 
 		private float gatherDistance { get; set; }
 
-		public GatherResource (GameObject tar)
-		{
-			target = tar;
-			Name = "GatherResource";
-			Goto = new GoToTarget (tar.transform.position);
+        public GatherResource(GameObject tar)
+        {
+            target = tar;
+            Name = "GatherResource";
+            if (tar == null) { Goto = null; }
+            else
+            {
+                Goto = new GoToTarget(tar.transform.position);
+            }
 			gatherDistance = 5.0f;
             preConditions = new List<string> { "ResourceInSight" };
             postConditions = new List<string> { "HasResources" };
@@ -34,6 +38,10 @@ namespace Scripts.AI.Actions
 				TargetResVars ().currentResource -= 10;
 				go.GetComponent<CharacterVars> ().currentResource += 10;
 			} else {
+                if(Goto == null)
+                {
+                    Goto = new GoToTarget(target.transform.position);
+                }
 				Goto.Execute (go);
 			}
 		}

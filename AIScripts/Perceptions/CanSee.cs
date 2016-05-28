@@ -19,7 +19,15 @@ namespace Scripts.AI.Perceptions
                 attributes.Add(Elements.ENERGY, target.GetComponent<CharacterVars>().currentEnergy);
                 attributes.Add(Elements.MAXRESOURCE, target.GetComponent<CharacterVars>().maxResource);
                 attributes.Add(Elements.MAXHEALTH, target.GetComponent<CharacterVars>().maxHealth); 
+            } else if (targetTag == "Resource")
+            {
+                attributes.Add(Elements.RESOURCE, target.GetComponent<ResourceVars>().currentResource);
+                attributes.Add(Elements.MAXRESOURCE, target.GetComponent<ResourceVars>().maxResource);
+            } else if (targetTag == "Village")
+            {
+                attributes.Add(Elements.RESOURCE, target.GetComponent<VillageVars>().currentResources);
+                
             }
-		}
+        }
 	}
 }

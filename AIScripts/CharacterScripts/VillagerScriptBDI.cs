@@ -9,7 +9,7 @@ using Scripts.AI.Deciders;
 
 namespace Scripts.AI.Characters
 {
-    public class VillagerScriptBDI : VillagerScript
+    public class VillagerScriptBDI : CharacterScript
     {
 
 
@@ -21,7 +21,7 @@ namespace Scripts.AI.Characters
         }
 
 
-        new void processPerceptions()
+        override public void processPerceptions()
         {
             currentPerceptions.Clear();
             currentPerceptions.AddRange(nextPerceptions);

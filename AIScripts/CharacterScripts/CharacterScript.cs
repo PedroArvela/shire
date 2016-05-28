@@ -68,7 +68,7 @@ namespace Scripts.AI.Characters
 			//Debug.Log("TriggerListOrc:" + triggerList.Count);
 		}
 
-        public void processPerceptions ()
+        virtual public void processPerceptions ()
 		{
 			currentPerceptions.Clear ();
 			currentPerceptions.AddRange (nextPerceptions);

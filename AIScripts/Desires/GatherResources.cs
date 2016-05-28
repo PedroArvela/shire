@@ -3,6 +3,7 @@ using Scripts.AI.Beliefs;
 using System.Collections.Generic;
 using System;
 using Scripts.AI.Emotions;
+using Scripts.Utils;
 
 namespace Scripts.AI.Desires
 {
@@ -25,9 +26,9 @@ namespace Scripts.AI.Desires
 		{
 			List<Belief> resourceBeliefs = beliefs.FindAll (b => b.Subject.tag == Elements.RESOURCE);
 			Belief villageBelief = beliefs.Find (b => b.Subject.tag == Elements.VILLAGE);
-			Belief selfBelief = beliefs.Find (b => b.Subject.Equals (self));
+            Belief selfBelief = beliefs.Find(b => b.Subject.Equals(self) && b.Name.Equals("IExist"));
 
-			if (selfBelief.attributes [Elements.RESOURCE] >= selfBelief.attributes [Elements.MAXRESOURCE]) {
+            if (self.GetComponent<CharacterVars>().currentResource >= self.GetComponent<CharacterVars>().maxResource) {
 				this.intensity = 0f;
 				return;
 			}
@@ -46,7 +47,7 @@ namespace Scripts.AI.Desires
 				intensity += belief.attributes [Elements.RESOURCE];
 			}
 
-			this.intensity = Math.Min (1f, intensity / (selfBelief.attributes [Elements.MAXRESOURCE] - selfBelief.attributes [Elements.RESOURCE]));
+			this.intensity = Math.Min (1f, intensity / (self.GetComponent<CharacterVars>().maxResource - self.GetComponent<CharacterVars>().currentResource));
 
 			// Generic boost of intensity when emotive, penalization when depressed
 			this.intensity += ((1f - this.intensity) * emotion.intensity);

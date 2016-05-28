@@ -11,6 +11,8 @@ namespace Scripts.AI.Beliefs
 		public VillagerExists (GameObject subject) : base (subject, subject.transform.position, 1.0f)
 		{
             conditions = new List<string>();
+            Name = "VillagerExists";
+            attributes = new SortedDictionary<string, float>();
         }
 
 		public override void updateBelief (List<Perception> perceptions)

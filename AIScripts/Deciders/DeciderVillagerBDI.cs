@@ -108,7 +108,7 @@ namespace Scripts.AI.Deciders
 
 		Plan plan;
 
-		Emotion blankEmotion;
+		Emotion blankEmotion = new Emotion();
 	
 
 
@@ -127,9 +127,11 @@ namespace Scripts.AI.Deciders
 
 		public override AIAction Decide (List<Perception> perceptions)
 		{
-			reviseBeliefs (perceptions);
 
-			if (plan != null || planSucceeded () || !planIsPossible ()) {
+
+            reviseBeliefs (perceptions);
+
+			if (plan == null || planSucceeded () || !planIsPossible ()) {
 				if (shouldReconsider ()) {
 					deliberateDesires ();
 					filterIntentions ();
@@ -148,29 +150,43 @@ namespace Scripts.AI.Deciders
 
 		public void reviseBeliefs (List<Perception> perceptions)
 		{
-			// Update each belief
-			
+            // Update each belief
 
-			// Add new beliefs
-			foreach (Perception perception in perceptions) {
-				if (!beliefs.Exists (b => b.Subject.Equals (perception.target))) {
-					switch (perception.targetTag) {
-					case "Orc":
-						beliefs.Add (new OrcExists (perception.target));
-						break;
-					case "Villager":
-						beliefs.Add (new VillagerExists (perception.target));
-						break;
-					case "Resource":
-						beliefs.Add (new ResourceExists (perception.target));
-						break;
-					case "Village":
-						beliefs.Add (new VillageExists (perception.target));
-						break;
-					}
-				}
-			}
 
+            // Add new beliefs
+            foreach (Perception perception in perceptions)
+            {
+                if (!beliefs.Exists(b => b.Subject.Equals(perception.target)))
+                {
+                    if (perception.target.Equals(gameObject))
+                    {
+                        beliefs.Add(new IExist(gameObject));
+
+                    }
+                    else
+                    {
+                        switch (perception.targetTag)
+                        {
+                            case "Orc":
+                                beliefs.Add(new OrcExists(perception.target));
+                                break;
+                            case "Villager":
+                                beliefs.Add(new VillagerExists(perception.target));
+                                break;
+                            case "Resource":
+                                beliefs.Add(new ResourceExists(perception.target));
+                                break;
+                            case "Village":
+                                beliefs.Add(new VillageExists(perception.target));
+                                break;
+                        }
+                    }
+
+                }
+
+            }
+
+            
 
             foreach (Belief b in beliefs)
             {
@@ -187,10 +203,10 @@ namespace Scripts.AI.Deciders
 
 		private void deliberateDesires ()
 		{
-			if (desires.Exists (d => d.Type () == "BeHealthy")) {
+			if (!desires.Exists (d => d.Type().Equals("BeHealthy"))) {
 				desires.Add (new BeHealthy (gameObject));
 			}
-			if (desires.Exists (d => d.Type () == "ExterminateOrcs")) {
+			if (!desires.Exists (d => d.Type () == "ExterminateOrcs")) {
 				desires.Add (new ExterminateOrcs (gameObject));
 			}
 			if (!desires.Exists (d => d.Type () == "GatherResources")) {
@@ -222,14 +238,16 @@ namespace Scripts.AI.Deciders
                 }
             }
 
-
-            switch (choosenDesire.Type())
+            if (choosenDesire != null)
             {
-                case ("GatherResources"): currentIntention = new IncreaseVillageResources(); break;
-                case ("ExterminateOrcs"): currentIntention = new KillOrcs(); break;
-                case ("BeHealthy"): currentIntention = new BecomeHealthy(); break;
+                switch (choosenDesire.Type())
+                {
+                    case ("GatherResources"): currentIntention = new IncreaseVillageResources(); break;
+                    case ("ExterminateOrcs"): currentIntention = new KillOrcs(); break;
+                    case ("BeHealthy"): currentIntention = new BecomeHealthy(); break;
 
 
+                }
             }
 
 		}
@@ -287,7 +305,7 @@ namespace Scripts.AI.Deciders
 
 		private bool planIsSound ()
 		{
-            return plan.Goal.Exists(str => str.Equals(currentIntention.Goal));
+            return (plan != null && plan.Goal.Exists(str => str.Equals(currentIntention.Goal)));
 		}
 
 		private bool planIsPossible ()
@@ -297,7 +315,7 @@ namespace Scripts.AI.Deciders
 
 		private bool planSucceeded ()
 		{
-			return plan.suceeded;
+			return (plan != null && plan.suceeded);
 		}
 
 		private bool shouldReconsider ()

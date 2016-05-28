@@ -12,6 +12,7 @@ namespace Scripts.AI.Beliefs
 		public SortedDictionary<string, float> attributes;
         public List<string> conditions;
 		public float Certainty;
+        public string Name;
 
 		public abstract void updateBelief (List<Perception> p);
 		public abstract void appraise (Emotion e);
