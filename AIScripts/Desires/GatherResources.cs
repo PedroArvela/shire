@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewBehaviourScript : MonoBehaviour {
+namespace Scripts.AI.Desires
+{
+	public class GatherResources : Desire
+	{
+		public GatherResources (float intensity)
+		{
+			this.targetType = Elements.RESOURCE;
+			this.attribute = Elements.COUNT;
+			this.goal = FuzzyLogicGoal.Increase;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+			this.intensity = intensity;
+		}
 	}
 }

@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ExterminateOrcs : MonoBehaviour {
+namespace Scripts.AI.Desires
+{
+	public class ExterminateOrcs : Desire
+	{
+		public ExterminateOrcs (float intensity)
+		{
+			this.targetType = Elements.ORC;
+			this.attribute = Elements.COUNT;
+			this.goal = FuzzyLogicGoal.None;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+			this.intensity = intensity;
+		}
 	}
 }

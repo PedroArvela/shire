@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BeHealthy : MonoBehaviour {
+namespace Scripts.AI.Desires
+{
+	public class BeHealthy : Desire
+	{
+		public BeHealthy (float intensity)
+		{
+			this.targetType = Elements.SELF;
+			this.attribute = Elements.HEALTH;
+			this.goal = FuzzyLogicGoal.Increase;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+			this.intensity = intensity;
+		}
 	}
 }

@@ -9,9 +9,5 @@ namespace Scripts.AI.Intentions
 		public string attribute;
 		public float limit;
 		public Logic condition;
-
-
-
-
 	}
 }
