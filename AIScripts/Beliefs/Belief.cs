@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Scripts.AI.Perceptions;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Beliefs
 {
@@ -12,6 +13,7 @@ namespace Scripts.AI.Beliefs
 		public float Certainty;
 
 		public abstract void updateBelief (List<Perception> p);
+		public abstract void appraise (Emotion e);
 
 		public bool Certain ()
 		{

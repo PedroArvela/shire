@@ -7,7 +7,7 @@ namespace Scripts.AI.Perceptions
 	{
 		public AttackedMe (GameObject target)
 		{
-			Name = "AttackedMe";
+			Name = Elements.ATTACK;
 			this.target = target;
 			targetTag = target.tag;
 		}

@@ -6,6 +6,7 @@ using Scripts.AI.Desires;
 using Scripts.AI.Intentions;
 using System.Collections.Generic;
 using Scripts.AI.Emotions;
+using System;
 
 namespace Scripts.AI.Deciders
 {
@@ -23,6 +24,7 @@ namespace Scripts.AI.Deciders
 			beliefs = new List<Belief> ();
 			desires = new List<Desire> ();
 			intentions = new List<Intention> ();
+			emotions = new List<Emotion> ();
 			plan = new List<AIAction> ();
 		}
 
@@ -87,14 +89,23 @@ namespace Scripts.AI.Deciders
 					emotion = emotions.Find (e => e.target.Equals (belief.Subject));
 				} else {
 					emotion = new Emotion ();
-					emotion.valence = 0;
-					emotion.intensity = 0;
+					emotion.valence = 0f;
+					emotion.intensity = 0f;
 				}
 
-				// TODO: Model the actual process of affecting the emotion in here
+				belief.appraise (emotion);
 			}
 
-			// TODO: Proccess the actual emotion based on the sum of emotions
+			float totalValence = 0f;
+			float totalIntensity = 0f;
+
+			foreach (Emotion e in emotions) {
+				totalValence += (float) Math.Pow(e.valence, 2);
+				totalIntensity += (float) Math.Pow(e.intensity, 2);
+			}
+
+			totalValence = totalValence / emotions.Count;
+			totalIntensity = totalIntensity / emotions.Count;
 		}
 
 		private void deliberateDesires ()
@@ -130,7 +141,7 @@ namespace Scripts.AI.Deciders
 
 		private bool planIsSound ()
 		{
-			return plan.Count != 0;
+			return planIsPossible () && plan.Count != 0;
 		}
 
 		private bool planIsPossible ()
