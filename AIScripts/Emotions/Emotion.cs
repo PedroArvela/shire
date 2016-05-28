@@ -12,14 +12,16 @@ namespace Scripts.AI.Emotions
 		 * Sadness would have a negative valence and low intensity.
 		 * Anger would have negative valence and high intensity.
 		 * 
-		 * The valence is measured from -1 to 1, and intensity from 0 to 1.
+		 * The valence is measured from -1 to 1, and intensity from -1 to 1.
+		 * 
+		 * Indiference is (0, 0).
 		 * 
 		 * The target is the "cause" of the emotion.
 		 */
 
-		float valence;
-		float intensity;
+		public float valence;
+		public float intensity;
 
-		GameObject target;
+		public GameObject target;
 	}
 }

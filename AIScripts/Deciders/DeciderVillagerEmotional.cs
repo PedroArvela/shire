@@ -14,6 +14,7 @@ namespace Scripts.AI.Deciders
 		List<Belief> beliefs;
 		List<Desire> desires;
 		List<Intention> intentions;
+		Emotion primaryEmotion;
 		List<Emotion> emotions;
 		List<AIAction> plan;
 
@@ -79,7 +80,21 @@ namespace Scripts.AI.Deciders
 
 		private void appraiseEmotions (List<Belief> beliefs)
 		{
-			// TODO
+			foreach (Belief belief in beliefs) {
+				Emotion emotion;
+
+				if (emotions.Exists (e => e.target.Equals (belief.Subject))) {
+					emotion = emotions.Find (e => e.target.Equals (belief.Subject));
+				} else {
+					emotion = new Emotion ();
+					emotion.valence = 0;
+					emotion.intensity = 0;
+				}
+
+				// TODO: Model the actual process of affecting the emotion in here
+			}
+
+			// TODO: Proccess the actual emotion based on the sum of emotions
 		}
 
 		private void deliberateDesires ()
