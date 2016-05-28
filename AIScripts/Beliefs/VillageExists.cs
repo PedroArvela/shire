@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Scripts.AI.Perceptions;
+using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Beliefs
 {
@@ -13,7 +14,11 @@ namespace Scripts.AI.Beliefs
 
 		public override void updateBelief (List<Perception> perceptions)
 		{
-			// nothing to do here
+			// TODO: update based on certainty of wether there are resources or not
+		}
+
+		public override void appraise (Emotion e)
+		{
 		}
 	}
 }

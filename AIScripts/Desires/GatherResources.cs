@@ -34,7 +34,9 @@ namespace Scripts.AI.Desires
 			// Have the intensity be inverse to the proportion of resources believed to be in the village
 			if (villageBelief != null) {
 				// TODO: Have in mind the certainty about this
-				this.intensity = 1f / (float)Math.Sqrt (villageBelief.attributes [Elements.RESOURCE]);
+
+				this.intensity = 1f / (float) Math.Sqrt (villageBelief.attributes [Elements.RESOURCE]);
+
 				return;
 			}
 

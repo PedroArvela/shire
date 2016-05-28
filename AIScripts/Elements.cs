@@ -18,5 +18,6 @@ namespace Scripts.AI
 		public const string COUNT = "Count";
 		public const string AMOUNT = "Amount";
 		public const string DISTANCE = "Distance";
+		public const string ATTACK = "AttackedMe";
 	}
 }
