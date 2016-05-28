@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Scripts.AI.Beliefs;
+using System.Collections.Generic;
 
 namespace Scripts.AI.Desires
 {
@@ -13,6 +15,11 @@ namespace Scripts.AI.Desires
 			this.goal = FuzzyLogicGoal.Increase;
 
 			this.intensity = intensity;
+		}
+
+		public override void updateDesire (List<Belief> beliefs)
+		{
+			throw new System.NotImplementedException ();
 		}
 	}
 }

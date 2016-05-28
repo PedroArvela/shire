@@ -11,6 +11,7 @@ namespace Scripts.AI
 		public const string RESOURCE = "Resource";
 		public const string VILLAGE = "Village";
 
+		public const string MAXHEALTH = "MaxHealth";
 		public const string HEALTH = "Health";
 		public const string COUNT = "Count";
 		public const string AMOUNT = "Amount";

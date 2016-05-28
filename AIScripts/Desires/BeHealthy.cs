@@ -22,10 +22,10 @@ namespace Scripts.AI.Desires
 		{
 			Belief selfBelief = beliefs.Find (b => b.Subject.Equals (self));
 
-			float currentHealth = self.GetComponent<CharacterVars> ().currentHealth;
-			float maxHealth = self.GetComponent<CharacterVars> ().maxHealth;
+			float currentHealth = selfBelief.attributes [Elements.HEALTH];
+			float maxHealth = selfBelief.attributes [Elements.MAX_HEALTH];
 
-			this.intensity = currentHealth / maxHealth;
+			this.intensity = 1 - (currentHealth / maxHealth);
 		}
 	}
 }
