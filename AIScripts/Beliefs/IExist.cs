@@ -34,9 +34,9 @@ namespace Scripts.AI.Beliefs
 
 		public override void appraise (Emotion e)
 		{
-			// Make energetic or depressed based on the amount of HP
-			e.valence = ((attributes [Elements.HEALTH] / attributes [Elements.MAXHEALTH]) * 2) - 1;
-			e.intensity = ((attributes [Elements.HEALTH] / attributes [Elements.MAXHEALTH]) * 2) - 1;
+			// Make energetic or tired based on the amount of HP
+			e.valence = 0f;
+			e.intensity = ((attributes [Elements.HEALTH] / attributes [Elements.MAXHEALTH]) * 2f) - 1f;
 		}
 	}
 }
