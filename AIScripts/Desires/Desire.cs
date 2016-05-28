@@ -15,6 +15,8 @@ namespace Scripts.AI.Desires
 
 		public float intensity;
 
+		public abstract string Type ();
 		public abstract void updateDesire (List<Belief> beliefs);
+		public abstract static Desire generateDesire(GameObject self, List<Belief> beliefs);
 	}
 }

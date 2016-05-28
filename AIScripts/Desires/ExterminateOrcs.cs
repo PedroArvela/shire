@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using Scripts.AI.Beliefs;
 
@@ -7,14 +6,24 @@ namespace Scripts.AI.Desires
 {
 	public class ExterminateOrcs : Desire
 	{
-		public ExterminateOrcs (GameObject self, float intensity)
+		private ExterminateOrcs (GameObject self)
 		{
 			this.self = self;
 			this.targetType = Elements.ORC;
 			this.attribute = Elements.COUNT;
 			this.goal = FuzzyLogicGoal.None;
+		}
 
-			this.intensity = intensity;
+		public override string Type ()
+		{
+			return "ExterminateOrcs";
+		}
+
+		public static override Desire generateDesire (GameObject self, List<Belief> beliefs)
+		{
+			Desire newDesire = new ExterminateOrcs (self);
+			newDesire.updateDesire (beliefs);
+			return newDesire;
 		}
 
 		public override void updateDesire (List<Belief> beliefs)
@@ -24,7 +33,7 @@ namespace Scripts.AI.Desires
 			float desire = 0;
 
 			if (orcBeliefs.Count == 0) {
-				this.intensity = 0;
+				this.intensity = 0f;
 				return;
 			}
 
