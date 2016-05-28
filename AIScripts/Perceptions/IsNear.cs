@@ -5,7 +5,7 @@ namespace Scripts.AI.Perceptions
 {
 	public class IsNear : Perception
 	{
-		public IsNear (GameObject target)
+		public IsNear (GameObject target) : base()
 		{
 			Name = "IsNear";
 			this.target = target;

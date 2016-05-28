@@ -28,6 +28,7 @@ namespace Scripts.AI.Beliefs
 			Subject = subject;
 			Location = location;
 			Certainty = certainty;
-		}
+            attributes = new SortedDictionary<string, float>();
+        }
 	}
 }

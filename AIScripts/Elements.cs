@@ -9,9 +9,12 @@ namespace Scripts.AI
 		public const string VILLAGER = "Villager";
 		public const string ORC = "Orc";
 		public const string RESOURCE = "Resource";
-		public const string VILLAGE = "Village";
+        public const string MAXRESOURCE = "MaxResource";
+        public const string ENERGY = "Energy";
+        public const string VILLAGE = "Village";
 
 		public const string HEALTH = "Health";
+        public const string MAXHEALTH = "MaxHealth";
 		public const string COUNT = "Count";
 		public const string AMOUNT = "Amount";
 		public const string DISTANCE = "Distance";

@@ -11,7 +11,7 @@ namespace Scripts.AI.Deciders
 	{
 		public override Actions.AIAction Decide (List<Perception> perceptions)
 		{
-            if (perceptions.Exists(p => p.Name == "IsLowHealth"))
+            if (perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.HEALTH] < 30)))
             {
                 //Debug.Log ("Decided Attack");
                 Name = "FleeToVillage";
@@ -23,7 +23,7 @@ namespace Scripts.AI.Deciders
                 Name = "AttackOrc";
 				List<Perception> orcs = perceptions.FindAll (p => p.targetTag == "Orc");
 				return new AttackTarget (ClosestPerception (orcs).target);
-			} else if (perceptions.Exists(p => p.targetTag == "Resource" && p.target.GetComponent<ResourceVars>().currentResource > 0) && CharVars().currentResource < CharVars().maxResource) {
+			} else if (perceptions.Exists(p => p.targetTag == "Resource") && perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.RESOURCE] < p.attributes[Elements.MAXRESOURCE]))) {
                 //Debug.Log ("Decided Gather");
                 Name = "Gather";
                 List<Perception> resources = perceptions.FindAll(p => p.targetTag == "Resource" && p.target.GetComponent<ResourceVars>().currentResource > 0);

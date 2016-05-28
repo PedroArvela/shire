@@ -71,11 +71,9 @@ namespace Scripts.AI.Characters
         {
             currentPerceptions.Clear();
 
-            if (charVars.currentHealth < 40)
-            {
-                currentPerceptions.Add(new IsLowHealth(gameObject));
-            }
-
+            
+            currentPerceptions.Add(new IAm(gameObject));
+            
             foreach (Collider other in triggerList)
             {
                 if ((other.tag == "Orc" || other.tag == "Villager" || other.tag == "Resource" || other.tag == "Village"))
