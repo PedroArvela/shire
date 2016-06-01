@@ -5,6 +5,16 @@ using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
+	class WanderBare : ActionBareBone
+	{
+		public WanderBare ()
+		{
+			Name = AIActions.Wander;
+			preConditions = new List<string> { };
+			postConditions = new List<string> { Elements.RESOURCE_IN_SIGHT, Elements.ORC_IN_SIGHT, Elements.VILLAGER_IN_SIGHT };
+		}
+	}
+
 	public class Wander : AIAction
 	{
 		public Vector3 position { get; set; }
@@ -13,9 +23,9 @@ namespace Scripts.AI.Actions
 
 		public Wander ()
 		{
-			Name = "Wander";
+			Name = AIActions.Wander;
 			preConditions = new List<string> { };
-			postConditions = new List<string> { "ResourceInSight", "OrcInSight", "VillagerInSight" };
+			postConditions = new List<string> { Elements.RESOURCE_IN_SIGHT, Elements.ORC_IN_SIGHT, Elements.VILLAGER_IN_SIGHT };
 		}
 
 		public override void Execute (GameObject go)

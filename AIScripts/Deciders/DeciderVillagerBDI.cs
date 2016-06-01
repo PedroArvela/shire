@@ -11,109 +11,13 @@ namespace Scripts.AI.Deciders
 {
 
 
-	abstract class ActionBareBone
-	{
-
-		public string actionName;
-		public List<string> preConditions;
-		public List<string> postConditions;
-
-	}
-
-	class GoToTargetBare : ActionBareBone
-	{
-
-		public GoToTargetBare ()
-		{
-			actionName = "GoToTarget";
-			preConditions = new List<string> { };
-			postConditions = new List<string> { "IsAtLocation" };
-		}
-	}
-
-	class WanderBare : ActionBareBone
-	{
-
-		public WanderBare ()
-		{
-			actionName = "Wander";
-			preConditions = new List<string> { };
-			postConditions = new List<string> { "ResourceInSight", "OrcInSight", "VillagerInSight" };
-        
-		}
-	}
-
-	class AttackTargetBare : ActionBareBone
-	{
-
-		public AttackTargetBare ()
-		{
-			actionName = "AttackTarget";
-			preConditions = new List<string> { "OrcInSight", "Healthy" };
-			postConditions = new List<string> { "OrcIsDead" };
-		}
-	}
-
-	class FleeToVillageBare : ActionBareBone
-	{
-
-		public FleeToVillageBare ()
-		{
-			actionName = "FleeToVillage";
-			preConditions = new List<string> { };
-			postConditions = new List<string> { "IsInVillage" };
-		}
-	}
-
-	class HealAtVillageBare : ActionBareBone
-	{
-
-		public HealAtVillageBare ()
-		{
-			actionName = "HealAtVillage";
-			preConditions = new List<string> { "IsInVillage" };
-			postConditions = new List<string> { "Healthy" };
-		}
-	}
-
-	class DropResourcesBare : ActionBareBone
-	{
-
-		public DropResourcesBare ()
-		{
-			actionName = "DropResources";
-			preConditions = new List<string> { "HasResources" };
-			postConditions = new List<string> { "VillageIncreasedResources", "IsInVillage" };
-		}
-	}
-
-
-	class GatherResourceBare : ActionBareBone
-	{
-
-		public GatherResourceBare ()
-		{
-			actionName = "GatherResource";
-			preConditions = new List<string> { "ResourceInSight" };
-			postConditions = new List<string> { "HasResources" };
-		}
-	}
-
-
 	public class DeciderVillagerBDI : Decider
 	{
 		public List<Belief> beliefs;
 		List<Desire> desires;
 		Intention currentIntention;
-
 		Plan plan;
-
 		Emotion blankEmotion = new Emotion ();
-
-
-
-        
-
 
 		public DeciderVillagerBDI ()
 		{
@@ -127,8 +31,6 @@ namespace Scripts.AI.Deciders
 
 		public override AIAction Decide (List<Perception> perceptions)
 		{
-
-
 			reviseBeliefs (perceptions);
 
 			if (plan == null || planSucceeded () || !planIsPossible ()) {
@@ -147,9 +49,6 @@ namespace Scripts.AI.Deciders
 
 		public void reviseBeliefs (List<Perception> perceptions)
 		{
-			// Update each belief
-
-
 			// Add new beliefs
 			foreach (Perception perception in perceptions) {
 				if (!beliefs.Exists (b => b.Subject.Equals (perception.target))) {
@@ -177,29 +76,24 @@ namespace Scripts.AI.Deciders
 
 			}
 
-            
-
+			// Update each belief
 			foreach (Belief b in beliefs) {
 				b.updateBelief (perceptions);
 			}
 
 			// Remove all beliefs no longer certain
-			beliefs.RemoveAll (b => b.Uncertain ());
-
-
-
-
+			//beliefs.RemoveAll (b => b.Uncertain ());
 		}
 
 		private void deliberateDesires ()
 		{
-			if (!desires.Exists (d => d.Type ().Equals ("BeHealthy"))) {
+			if (!desires.Exists (d => d.Type ().Equals (DesireType.BeHealthy))) {
 				desires.Add (new BeHealthy (gameObject));
 			}
-			if (!desires.Exists (d => d.Type () == "ExterminateOrcs")) {
+			if (!desires.Exists (d => d.Type ().Equals (DesireType.ExterminateOrcs))) {
 				desires.Add (new ExterminateOrcs (gameObject));
 			}
-			if (!desires.Exists (d => d.Type () == "GatherResources")) {
+			if (!desires.Exists (d => d.Type ().Equals (DesireType.GatherResources))) {
 				desires.Add (new GatherResources (gameObject));
 			}
 
@@ -227,17 +121,15 @@ namespace Scripts.AI.Deciders
 
 			if (choosenDesire != null) {
 				switch (choosenDesire.Type ()) {
-				case ("GatherResources"):
+				case DesireType.GatherResources:
 					currentIntention = new IncreaseVillageResources ();
 					break;
-				case ("ExterminateOrcs"):
+				case DesireType.ExterminateOrcs:
 					currentIntention = new KillOrcs ();
 					break;
-				case ("BeHealthy"):
+				case DesireType.BeHealthy:
 					currentIntention = new BecomeHealthy ();
 					break;
-
-
 				}
 			}
 
@@ -254,6 +146,7 @@ namespace Scripts.AI.Deciders
 			};
 			List<ActionBareBone> newPlanBareBone = new List<ActionBareBone> ();
 			Stack<AIAction> newPlan = new Stack<AIAction> ();
+
 			Stack<string> currentConditions = new Stack<string> ();
 			currentConditions.Push (currentIntention.Goal);
 
@@ -270,40 +163,39 @@ namespace Scripts.AI.Deciders
 
 			}
 
-            
-
 			foreach (ActionBareBone abb in newPlanBareBone) {
                 
-				switch (abb.actionName) {
-
-				case "GoToTarget":
+				switch (abb.Name) {
+				case AIActions.GoToTarget:
 					newPlan.Push (new GoToTarget (new Vector3 (0, 0, 0)));
 					break;
-				case "FleeToVillage":
+				case AIActions.FleeToVillage:
 					newPlan.Push (new FleeToVillage ());
 					break;
-				case "DropResources":
+				case AIActions.DropResources:
 					newPlan.Push (new DropResources ());
 					break;
-				case "GatherResource":
+				case AIActions.GatherResources:
 					newPlan.Push (new GatherResource (null));
 					break;
-				case "Wander":
+				case AIActions.Wander:
 					newPlan.Push (new Wander ());
 					break;
-				case "AttackTarget":
+				case AIActions.Attack:
 					newPlan.Push (new AttackTarget (gameObject, null));
 					break;
-				case "HealAtVillage":
+				case AIActions.HealAtVillage:
 					newPlan.Push (new HealAtVillage ());
 					break;
-
 				}
-				Name = abb.actionName;
 
+				return;
 			}
 
-
+			if (newPlan.Count == 0) {
+				Debug.Log ("Catastrophic failure");
+				return;
+			}
 
 			plan = new Plan (newPlan, this);
 

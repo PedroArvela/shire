@@ -18,9 +18,9 @@ namespace Scripts.AI.Desires
 			this.intensity = 1f;
 		}
 
-		public override string Type ()
+		public override DesireType Type ()
 		{
-			return "GatherResources";
+			return DesireType.GatherResources;
 		}
 
 		public override void updateDesire (List<Belief> beliefs, Emotion emotion)

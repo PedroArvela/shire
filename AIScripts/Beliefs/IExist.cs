@@ -27,28 +27,28 @@ namespace Scripts.AI.Beliefs
 
 				attributes [Elements.HEALTH] = perceptions [0].attributes [Elements.HEALTH];
 				attributes [Elements.RESOURCE] = perceptions [0].attributes [Elements.RESOURCE];
-				attributes [Elements.MAXHEALTH] = perceptions [0].attributes [Elements.MAXHEALTH];
-				attributes [Elements.MAXRESOURCE] = perceptions [0].attributes [Elements.MAXRESOURCE];
+				attributes [Elements.MAX_HEALTH] = perceptions [0].attributes [Elements.MAX_HEALTH];
+				attributes [Elements.MAX_RESOURCE] = perceptions [0].attributes [Elements.MAX_RESOURCE];
 
 				Location = candidates [0].target.transform.position;
 			}
 
-            if((attributes[Elements.HEALTH] / attributes[Elements.MAXHEALTH]) >= 0.7 && conditions.Count == 0)
+            if((attributes[Elements.HEALTH] / attributes[Elements.MAX_HEALTH]) >= 0.7 && conditions.Count == 0)
             {
                 conditions.Add("Healthy");
 
-            } else if((attributes[Elements.HEALTH] / attributes[Elements.MAXHEALTH]) < 0.7)
+            } else if((attributes[Elements.HEALTH] / attributes[Elements.MAX_HEALTH]) < 0.7)
             {
                 conditions.Clear();
 
             }
 
-            if ((attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]) >= 0.7 && conditions.Count == 0)
+            if ((attributes[Elements.RESOURCE] / attributes[Elements.MAX_RESOURCE]) >= 0.7 && conditions.Count == 0)
             {
                 conditions.Add("HasResources");
 
             }
-            else if ((attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]) < 0.7)
+            else if ((attributes[Elements.RESOURCE] / attributes[Elements.MAX_RESOURCE]) < 0.7)
             {
                 conditions.Clear();
 
@@ -60,7 +60,7 @@ namespace Scripts.AI.Beliefs
 		{
 			// Make energetic or tired based on the amount of HP
 			e.valence = 0f;
-			e.intensity = ((attributes [Elements.HEALTH] / attributes [Elements.MAXHEALTH]) * 2f) - 1f;
+			e.intensity = ((attributes [Elements.HEALTH] / attributes [Elements.MAX_HEALTH]) * 2f) - 1f;
 		}
 	}
 }

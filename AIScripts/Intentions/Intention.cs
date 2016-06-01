@@ -8,9 +8,5 @@ namespace Scripts.AI.Intentions
 		public GameObject target;
 		public string attribute;
         public string Goal;
-
-
 	}
-
-
 }

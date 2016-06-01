@@ -17,12 +17,12 @@ namespace Scripts.AI.Perceptions
                 attributes.Add(Elements.HEALTH, target.GetComponent<CharacterVars>().currentHealth);
                 attributes.Add(Elements.RESOURCE, target.GetComponent<CharacterVars>().currentResource);
                 attributes.Add(Elements.ENERGY, target.GetComponent<CharacterVars>().currentEnergy);
-                attributes.Add(Elements.MAXRESOURCE, target.GetComponent<CharacterVars>().maxResource);
-                attributes.Add(Elements.MAXHEALTH, target.GetComponent<CharacterVars>().maxHealth); 
+                attributes.Add(Elements.MAX_RESOURCE, target.GetComponent<CharacterVars>().maxResource);
+                attributes.Add(Elements.MAX_HEALTH, target.GetComponent<CharacterVars>().maxHealth); 
             } else if (targetTag == "Resource")
             {
                 attributes.Add(Elements.RESOURCE, target.GetComponent<ResourceVars>().currentResource);
-                attributes.Add(Elements.MAXRESOURCE, target.GetComponent<ResourceVars>().maxResource);
+                attributes.Add(Elements.MAX_RESOURCE, target.GetComponent<ResourceVars>().maxResource);
             } else if (targetTag == "Village")
             {
                 attributes.Add(Elements.RESOURCE, target.GetComponent<VillageVars>().currentResources);

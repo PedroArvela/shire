@@ -14,7 +14,6 @@ namespace Scripts.AI.Deciders
 	{
 		List<Belief> beliefs;
 		List<Desire> desires;
-		List<Intention> intentions;
 		Emotion primaryEmotion;
 		List<Emotion> emotions;
 		List<AIAction> plan;
@@ -23,8 +22,8 @@ namespace Scripts.AI.Deciders
 		{
 			beliefs = new List<Belief> ();
 			desires = new List<Desire> ();
-			intentions = new List<Intention> ();
 			emotions = new List<Emotion> ();
+			primaryEmotion = null;
 			plan = new List<AIAction> ();
 		}
 
@@ -125,13 +124,13 @@ namespace Scripts.AI.Deciders
 
 		private void deliberateDesires ()
 		{
-			if (desires.Exists (d => d.Type () == "BeHealthy")) {
+			if (desires.Exists (d => d.Type () == DesireType.BeHealthy)) {
 				desires.Add (new BeHealthy (gameObject));
 			}
-			if (desires.Exists (d => d.Type () == "ExterminateOrcs")) {
+			if (desires.Exists (d => d.Type () == DesireType.ExterminateOrcs)) {
 				desires.Add (new ExterminateOrcs (gameObject));
 			}
-			if (!desires.Exists (d => d.Type () == "GatherResources")) {
+			if (!desires.Exists (d => d.Type () == DesireType.GatherResources)) {
 				desires.Add (new GatherResources (gameObject));
 			}
 

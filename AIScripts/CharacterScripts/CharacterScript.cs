@@ -25,7 +25,6 @@ namespace Scripts.AI.Characters
 		protected AIAction currentAction = null;
 		protected Decider decider;
 
-        
 		void Awake ()
 		{
 			charVars = GetComponent<CharacterVars> ();
@@ -45,10 +44,8 @@ namespace Scripts.AI.Characters
 			InvokeRepeating ("DecideAction", 2f, 2f);
 		}
 
-
-
-        // Update is called once per frame
-        public void Update ()
+		// Update is called once per frame
+		public void Update ()
 		{
 			if (currentAction != null) {
 				currentAction.Execute (this.gameObject);
@@ -62,13 +59,11 @@ namespace Scripts.AI.Characters
 
 		void DecideAction ()
 		{
-			//Debug.Log ("Perceptions Orc:" + currentPerceptions.Count);
 			processPerceptions ();
 			currentAction = decider.Decide (currentPerceptions);
-			//Debug.Log("TriggerListOrc:" + triggerList.Count);
 		}
 
-        virtual public void processPerceptions ()
+		virtual public void processPerceptions ()
 		{
 			currentPerceptions.Clear ();
 			currentPerceptions.AddRange (nextPerceptions);
@@ -77,16 +72,15 @@ namespace Scripts.AI.Characters
 			currentPerceptions.Add (new IAm (gameObject));
             
 			foreach (Collider other in triggerList) {
-				if ((other.tag == "Orc" || other.tag == "Villager" || other.tag == "Resource" || other.tag == "Village")) {
-
-
+				switch (other.tag) {
+				case "Orc":
+				case "Villager":
+				case "Resource":
+				case "Village":
 					if (inSight (other)) {
 						currentPerceptions.Add (new CanSee (other.gameObject));
-						//Debug.Log("Adding");
 					}
-
-
-
+					break;
 				}
 			}
 		}
@@ -102,29 +96,21 @@ namespace Scripts.AI.Characters
 		{
 			if (triggerList.Contains (other)) {
 				triggerList.Remove (other);
-			} else {
-				//Debug.Log("Oops, missed one <_<");
 			}
 		}
 
 		public bool inSight (Collider other)
 		{
-
 			if (Vector3.Distance (other.transform.position, transform.position) <= hearingRange) {
-				//Debug.Log("IsHearingOrc");
 				return true;
-
 			}
-
 
 			Vector3 direction = other.transform.position - (transform.position + transform.up);
 			float angle = Vector3.Angle (direction.normalized, transform.forward.normalized);
-			//Debug.Log(angle);
-			if (angle <= fov * 0.5f) {
 
+			if (angle <= fov * 0.5f) {
 				RaycastHit hit;
 				if (Physics.Raycast (transform.position + transform.up, direction.normalized, out hit, col.radius)) {
-					//Debug.Log("Hitmannn");
 					return hit.collider.gameObject.Equals (other.gameObject);
 				}
 				return false;

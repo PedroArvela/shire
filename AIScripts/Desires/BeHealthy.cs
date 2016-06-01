@@ -16,9 +16,9 @@ namespace Scripts.AI.Desires
 			this.goal = FuzzyLogicGoal.Increase;
 		}
 
-		public override string Type ()
+		public override DesireType Type ()
 		{
-			return "BeHealthy";
+			return DesireType.BeHealthy;
 		}
 
 		public override void updateDesire (List<Belief> beliefs, Emotion emotion)

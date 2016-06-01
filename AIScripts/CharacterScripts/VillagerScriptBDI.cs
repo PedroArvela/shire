@@ -28,24 +28,19 @@ namespace Scripts.AI.Characters
 			currentPerceptions.Add (new IAm (gameObject));
 
 			foreach (Collider other in triggerList) {
-				if ((other.tag == "Orc" || other.tag == "Villager" || other.tag == "Resource" || other.tag == "Village")) {
-
-
+				switch (other.tag) {
+				case "Orc":
+				case "Villager":
+				case "Resource":
+				case "Village":
 					if (inSight (other)) {
 						currentPerceptions.Add (new CanSee (other.gameObject));
-						//Debug.Log("Adding");
 					}
-
-
-
+					break;
 				}
 			}
 
 			((DeciderVillagerBDI)decider).reviseBeliefs (currentPerceptions);
 		}
-
-
-
-
 	}
 }

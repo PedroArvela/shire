@@ -30,7 +30,7 @@ namespace Scripts.AI.Deciders
                 Name = "AttackOrc";
 				List<Perception> orcs = perceptions.FindAll (p => p.targetTag == "Orc");
 				return new AttackTarget (gameObject, ClosestPerception (orcs).target);
-			} else if (perceptions.Exists(p => p.targetTag == "Resource") && perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.RESOURCE] < p.attributes[Elements.MAXRESOURCE]))) {
+			} else if (perceptions.Exists(p => p.targetTag == "Resource") && perceptions.Exists(p => (p.Name == "IAm" && p.attributes[Elements.RESOURCE] < p.attributes[Elements.MAX_RESOURCE]))) {
                 //Debug.Log ("Decided Gather");
                 Name = "Gather";
                 List<Perception> resources = perceptions.FindAll(p => p.targetTag == "Resource" && p.target.GetComponent<ResourceVars>().currentResource > 0);
