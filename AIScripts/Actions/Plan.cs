@@ -32,37 +32,36 @@ namespace Scripts.AI.Actions
 
             bool readyStep = true;
 
-            foreach (string s in actionPlan.Peek().preConditions)
+
+
+            if (actionPlan.Count > 0)
             {
-                bool tempStep = false;
-                foreach (Belief b in decider.beliefs)
+                foreach (string s in actionPlan.Peek().preConditions)
                 {
-                    if (b != null && b.conditions.Exists(cond => cond.Equals(s)))
+                    bool tempStep = false;
+                    foreach (Belief b in decider.beliefs)
                     {
+                        if (b != null && b.conditions.Exists(cond => cond.Equals(s)))
+                        {
 
-                        tempStep = true;
-                        break;
+                            tempStep = true;
+                            break;
+                        }
                     }
+
+                    if (!tempStep) { readyStep = false; break; }
+
                 }
 
-                if (!tempStep) { readyStep = false; break; }
-
-            }
-
-            if (readyStep)
-            {
-                currentAction = actionPlan.Pop();
-                if (currentAction.preConditions.Count > 0)
+                if (readyStep)
                 {
-                    currentAction.target = decider.beliefs.Find(b => b.conditions.Contains(currentAction.preConditions[0])).Subject;
-                }
-            }
-
-            if(currentAction != null)
-            {
-                currentAction.Execute(go);
-
-            } else
+                    currentAction = actionPlan.Pop();
+                    if (currentAction.preConditions.Count > 0 && currentAction.target == null)
+                    {
+                        currentAction.target = decider.beliefs.Find(b => b.conditions.Contains(currentAction.preConditions[0])).Subject;
+                    }
+                } 
+            } else if (currentAction.finished)
             {
 
                 suceeded = true;
@@ -71,6 +70,11 @@ namespace Scripts.AI.Actions
                 go.GetComponent<Animator>().SetBool("isWalking", false);
                 go.GetComponent<Animator>().SetBool("isRunning", false);
                 go.GetComponent<Animator>().SetBool("isAttacking", false);
+            }
+
+            if (currentAction != null)
+            {
+                currentAction.Execute(go);
             }
             
 

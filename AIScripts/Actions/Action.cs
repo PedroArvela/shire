@@ -11,6 +11,7 @@ namespace Scripts.AI.Actions
 		public GameObject target;
         public List<string> preConditions;
         public List<string> postConditions;
+        public bool finished = false;
 
         abstract public void Execute (GameObject go);
 

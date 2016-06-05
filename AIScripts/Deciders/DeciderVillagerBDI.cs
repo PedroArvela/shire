@@ -305,7 +305,7 @@ namespace Scripts.AI.Deciders
 
 		private bool planIsSound ()
 		{
-            return (plan != null && plan.Goal.Exists(str => str.Equals(currentIntention.Goal)));
+            return (plan != null && plan.Goal.Exists(str => str.Equals(currentIntention.Goal)) && !plan.suceeded);
 		}
 
 		private bool planIsPossible ()

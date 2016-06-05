@@ -15,6 +15,10 @@ namespace Scripts.AI.Beliefs
             Name = "IExist";
             conditions = new List<string>();
             attributes = new SortedDictionary<string, float>();
+            attributes.Add(Elements.HEALTH, 0);
+            attributes.Add(Elements.RESOURCE, 0);
+            attributes.Add(Elements.MAXHEALTH, 0);
+            attributes.Add(Elements.MAXRESOURCE, 0);
 
         }
 
@@ -33,7 +37,7 @@ namespace Scripts.AI.Beliefs
 				Location = candidates [0].target.transform.position;
 			}
 
-            if((attributes[Elements.HEALTH] / attributes[Elements.MAXHEALTH]) >= 0.7 && conditions.Count == 0)
+            if((attributes[Elements.HEALTH] / attributes[Elements.MAXHEALTH]) >= 0.7 && !conditions.Exists(p => p == "Healthy"))
             {
                 conditions.Add("Healthy");
 
@@ -43,7 +47,10 @@ namespace Scripts.AI.Beliefs
 
             }
 
-            if ((attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]) >= 0.7 && conditions.Count == 0)
+            Debug.Log("Resources " + attributes[Elements.RESOURCE]);
+            Debug.Log("MaxResources " + attributes[Elements.MAXRESOURCE]);
+            Debug.Log("Ratio " + (attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]));
+            if ((attributes[Elements.RESOURCE] / attributes[Elements.MAXRESOURCE]) >= 0.7 && !conditions.Exists(p => p == "HasResources"))
             {
                 conditions.Add("HasResources");
 

@@ -91,7 +91,7 @@ namespace Scripts.AI.Characters
 			}
 		}
 
-		void OnTriggerStay (Collider other)
+		void OnTriggerEnter (Collider other)
 		{
 			if (!triggerList.Contains (other)) {
 				triggerList.Add (other);

@@ -32,7 +32,7 @@ namespace Scripts.AI.Actions
                     go.GetComponent<CharacterVars>().currentResource = 0;
                     go.GetComponent<NavMeshAgent>().Stop();
                     go.transform.rotation = Quaternion.AngleAxis(180, Vector3.up) * go.transform.rotation;
-
+                    finished = true;
                     
                 }
                 else
