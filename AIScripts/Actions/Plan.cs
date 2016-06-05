@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Scripts.AI.Deciders;
-
+using Scripts.AI.Beliefs;
 
 namespace Scripts.AI.Actions
 {
@@ -34,11 +34,18 @@ namespace Scripts.AI.Actions
 
             foreach (string s in actionPlan.Peek().preConditions)
             {
-                if (!decider.beliefs.Exists(belief => belief.conditions.Exists(cond => cond.Equals(s)))) {
+                bool tempStep = false;
+                foreach (Belief b in decider.beliefs)
+                {
+                    if (b != null && b.conditions.Exists(cond => cond.Equals(s)))
+                    {
 
-                    readyStep = false;
-                    break;
+                        tempStep = true;
+                        break;
+                    }
                 }
+
+                if (!tempStep) { readyStep = false; break; }
 
             }
 

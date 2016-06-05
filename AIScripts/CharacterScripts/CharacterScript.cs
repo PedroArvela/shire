@@ -26,7 +26,7 @@ namespace Scripts.AI.Characters
 		protected Decider decider;
 
         
-		void Awake ()
+		protected void Awake ()
 		{
 			charVars = GetComponent<CharacterVars> ();
 			nextPerceptions = new List<Perception> ();

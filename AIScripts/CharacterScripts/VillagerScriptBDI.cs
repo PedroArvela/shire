@@ -14,9 +14,10 @@ namespace Scripts.AI.Characters
 
 
         // Use this for initialization
-        void Start()
+        new void Awake()
         {
-            decider = this.gameObject.AddComponent<DeciderVillagerBDI>();
+            base.Awake();
+            base.decider = this.gameObject.AddComponent<DeciderVillagerBDI>();
             
         }
 

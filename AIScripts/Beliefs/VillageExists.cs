@@ -12,6 +12,7 @@ namespace Scripts.AI.Beliefs
 		{
             Name = "VillageExists";
             attributes = new SortedDictionary<string, float>();
+            conditions = new List<string>();
 
 		}
 
