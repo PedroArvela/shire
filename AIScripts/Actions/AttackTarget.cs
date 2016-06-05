@@ -7,6 +7,16 @@ using Scripts.AI.Perceptions;
 
 namespace Scripts.AI.Actions
 {
+	class AttackTargetBare : ActionBareBone
+	{
+		public AttackTargetBare ()
+		{
+			Name = AIActions.Attack;
+			preConditions = new List<string> { Elements.ORC_IN_SIGHT, Elements.IS_HEALTHY };
+			postConditions = new List<string> { Elements.ORC_IS_DEAD };
+		}
+	}
+
 	public class AttackTarget : AIAction
 	{
 		private GoToTarget Goto;
@@ -19,11 +29,11 @@ namespace Scripts.AI.Actions
 		{
 			target = tar;
 			this.self = self;
-			Name = "AttackTarget";
+			Name = AIActions.Attack;
 			Goto = new GoToTarget (tar.transform.position);
 			attackDistance = 5.0f;
-            preConditions = new List<string> { "OrcInSight", "Healthy" };
-            postConditions = new List<string> { "OrcIsDead" };
+			preConditions = new List<string> { Elements.ORC_IN_SIGHT, Elements.IS_HEALTHY };
+            postConditions = new List<string> { Elements.ORC_IS_DEAD };
         }
 
 

@@ -10,11 +10,12 @@ namespace Scripts.AI.Beliefs
 		public GameObject Subject;
 		public Vector3 Location;
 		public SortedDictionary<string, float> attributes;
-        public List<string> conditions;
+		public List<string> conditions;
 		public float Certainty;
-        public string Name;
+		public string Name;
 
 		public abstract void updateBelief (List<Perception> p);
+
 		public abstract void appraise (Emotion e);
 
 		public bool Certain ()
@@ -32,7 +33,8 @@ namespace Scripts.AI.Beliefs
 			Subject = subject;
 			Location = location;
 			Certainty = certainty;
-            attributes = new SortedDictionary<string, float>();
-        }
+			attributes = new SortedDictionary<string, float> ();
+			conditions = new List<string> ();
+		}
 	}
 }

@@ -6,6 +6,12 @@ using Scripts.AI.Emotions;
 
 namespace Scripts.AI.Desires
 {
+	public enum DesireType {
+		BeHealthy,
+		ExterminateOrcs,
+		GatherResources
+	}
+
 	public abstract class Desire
 	{
 		protected GameObject self;
@@ -16,7 +22,7 @@ namespace Scripts.AI.Desires
 
 		public float intensity;
 
-		public abstract string Type ();
+		public abstract DesireType Type ();
 		public abstract void updateDesire (List<Belief> beliefs, Emotion emotion);
 	}
 }

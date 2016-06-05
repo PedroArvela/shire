@@ -22,7 +22,7 @@ namespace Scripts.AI.Beliefs
             if (candidate != null)
             {
                 attributes[Elements.RESOURCE] = candidate.attributes[Elements.RESOURCE];
-                attributes[Elements.MAXRESOURCE] = candidate.attributes[Elements.MAXRESOURCE];
+                attributes[Elements.MAX_RESOURCE] = candidate.attributes[Elements.MAX_RESOURCE];
                 conditions.Add("ResourceInSight");
             }   else
             {

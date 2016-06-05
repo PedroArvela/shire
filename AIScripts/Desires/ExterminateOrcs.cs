@@ -15,9 +15,9 @@ namespace Scripts.AI.Desires
 			this.goal = FuzzyLogicGoal.None;
 		}
 
-		public override string Type ()
+		public override DesireType Type ()
 		{
-			return "ExterminateOrcs";
+			return DesireType.ExterminateOrcs;
 		}
 
 		public override void updateDesire (List<Belief> beliefs, Emotion emotion)
@@ -35,7 +35,7 @@ namespace Scripts.AI.Desires
 			// with a lot of health.
 			foreach (Belief orcBelief in orcBeliefs) {
 				float orcHealth = orcBelief.attributes [Elements.HEALTH];
-				float maxOrcHealth = orcBelief.attributes [Elements.MAXHEALTH];
+				float maxOrcHealth = orcBelief.attributes [Elements.MAX_HEALTH];
 				float certainty = orcBelief.Certainty;
 
 				maxDesire += maxOrcHealth;

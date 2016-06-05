@@ -5,14 +5,25 @@ using Scripts.Utils;
 
 namespace Scripts.AI.Actions
 {
+	public enum AIActions {
+		Attack,
+		GoToTarget,
+		RunToTarget,
+		GatherResources,
+		DropResources,
+		FleeToVillage,
+		HealAtVillage,
+		Wander
+	}
+
 	public abstract class AIAction
 	{
-		public string Name;
+		public AIActions Name;
 		public GameObject target;
-        public List<string> preConditions;
-        public List<string> postConditions;
+		public List<string> preConditions;
+		public List<string> postConditions;
 
-        abstract public void Execute (GameObject go);
+		abstract public void Execute (GameObject go);
 
 		protected CharacterVars TargetCharVars ()
 		{
@@ -23,5 +34,12 @@ namespace Scripts.AI.Actions
 		{
 			return target.gameObject.GetComponent<ResourceVars> ();
 		}
+	}
+
+	abstract class ActionBareBone
+	{
+		public AIActions Name;
+		public List<string> preConditions;
+		public List<string> postConditions;
 	}
 }

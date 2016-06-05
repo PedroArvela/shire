@@ -15,8 +15,8 @@ namespace Scripts.AI.Perceptions
 			attributes.Add(Elements.HEALTH, target.GetComponent<CharacterVars>().currentHealth);
 			attributes.Add(Elements.RESOURCE, target.GetComponent<CharacterVars>().currentResource);
 			attributes.Add(Elements.ENERGY, target.GetComponent<CharacterVars>().currentEnergy);
-			attributes.Add(Elements.MAXRESOURCE, target.GetComponent<CharacterVars>().maxResource);
-			attributes.Add(Elements.MAXHEALTH, target.GetComponent<CharacterVars>().maxHealth);
+			attributes.Add(Elements.MAX_RESOURCE, target.GetComponent<CharacterVars>().maxResource);
+			attributes.Add(Elements.MAX_HEALTH, target.GetComponent<CharacterVars>().maxHealth);
 		}
 	}
 }

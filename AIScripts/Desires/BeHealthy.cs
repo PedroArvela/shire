@@ -16,17 +16,15 @@ namespace Scripts.AI.Desires
 			this.goal = FuzzyLogicGoal.Increase;
 		}
 
-		public override string Type ()
+		public override DesireType Type ()
 		{
-			return "BeHealthy";
+			return DesireType.BeHealthy;
 		}
 
 		public override void updateDesire (List<Belief> beliefs, Emotion emotion)
 		{
-			Belief selfBelief = beliefs.Find (b => b.Subject.Equals (self) && b.Name.Equals("IExist"));
-
-			float currentHealth = self.GetComponent<CharacterVars>().currentHealth;
-			float maxHealth = self.GetComponent<CharacterVars>().maxHealth;
+			float currentHealth = self.GetComponent<CharacterVars> ().currentHealth;
+			float maxHealth = self.GetComponent<CharacterVars> ().maxHealth;
 
 			this.intensity = 1f - (currentHealth / maxHealth);
 

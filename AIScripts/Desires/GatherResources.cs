@@ -15,11 +15,12 @@ namespace Scripts.AI.Desires
 			this.targetType = Elements.RESOURCE;
 			this.attribute = Elements.COUNT;
 			this.goal = FuzzyLogicGoal.Increase;
+			this.intensity = 1f;
 		}
 
-		public override string Type ()
+		public override DesireType Type ()
 		{
-			return "GatherResources";
+			return DesireType.GatherResources;
 		}
 
 		public override void updateDesire (List<Belief> beliefs, Emotion emotion)

@@ -6,31 +6,31 @@ using Scripts.AI.Beliefs;
 
 namespace Scripts.AI.Actions
 {
-    public class Plan : AIAction
-    {
+	public class Plan : AIAction
+	{
 
-        public DeciderVillagerBDI decider;
-        public Stack<AIAction> actionPlan;
-        public AIAction currentAction;
-        public List<string> Goal;
+		public DeciderVillagerBDI decider;
+		public Stack<AIAction> actionPlan;
+		public AIAction currentAction;
+		public List<string> Goal;
         public bool suceeded = false;
 
-        public Plan(Stack<AIAction> actions, DeciderVillagerBDI dec)
-        {
-            decider = dec;
-            actionPlan = actions;
+		public Plan (Stack<AIAction> actions, DeciderVillagerBDI dec)
+		{
+			decider = dec;
+			actionPlan = actions;
 
-        }
+		}
 
-        public override void Execute(GameObject go)
-        {
+		public override void Execute (GameObject go)
+		{
             
-            if(currentAction == null)
-            {
-                currentAction = actionPlan.Pop();
-            }
+			if (currentAction == null) {
+				currentAction = actionPlan.Pop ();
+			}
 
-            bool readyStep = true;
+			bool readyStep = true;
+
 
             foreach (string s in actionPlan.Peek().preConditions)
             {
@@ -49,36 +49,27 @@ namespace Scripts.AI.Actions
 
             }
 
-            if (readyStep)
-            {
-                currentAction = actionPlan.Pop();
-                if (currentAction.preConditions.Count > 0)
-                {
-                    currentAction.target = decider.beliefs.Find(b => b.conditions.Contains(currentAction.preConditions[0])).Subject;
-                }
-            }
 
-            if(currentAction != null)
-            {
-                currentAction.Execute(go);
+			if (readyStep) {
+				currentAction = actionPlan.Pop ();
+				if (currentAction.preConditions.Count > 0) {
+					currentAction.target = decider.beliefs.Find (b => b.conditions.Contains (currentAction.preConditions [0])).Subject;
+				}
+			}
 
-            } else
-            {
-
-                suceeded = true;
-                go.GetComponent<NavMeshAgent>().Stop();
+			if (currentAction != null) {
+				currentAction.Execute (go);
+			} else {
+				go.GetComponent<NavMeshAgent> ().Stop ();
                 
-                go.GetComponent<Animator>().SetBool("isWalking", false);
-                go.GetComponent<Animator>().SetBool("isRunning", false);
-                go.GetComponent<Animator>().SetBool("isAttacking", false);
-            }
-            
+				go.GetComponent<Animator> ().SetBool ("isWalking", false);
+				go.GetComponent<Animator> ().SetBool ("isRunning", false);
+				go.GetComponent<Animator> ().SetBool ("isAttacking", false);
+			}
+		}
 
-
-        }
-
-
-
-
-    }
+		public bool Succeeded() {
+			return actionPlan.Count == 0;
+		}
+	}
 }
